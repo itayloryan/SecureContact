@@ -3,6 +3,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:paddingBottom="10dp"
                 xmlns:autofit="http://schemas.android.com/apk/res-auto">
 
     <View
@@ -21,11 +22,11 @@
             android:layout_toLeftOf="@+id/hide_dial_pad_btn"
             android:gravity="center"
             android:text="566654445"
-            android:minHeight="40dp"
+            android:minHeight="50dp"
             android:textSize="30dp"
             android:ellipsize="end"
             android:singleLine="true"
-            autofit:minTextSize="14dp"/>
+            autofit:minTextSize="20sp"/>
 
         <ImageView
             android:id="@+id/hide_dial_pad_btn"

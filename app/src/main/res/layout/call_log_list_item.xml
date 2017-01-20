@@ -28,6 +28,7 @@
             android:layout_marginRight="10dp"
             android:layout_gravity="center"
             android:ellipsize="end"
+            android:textColor="@color/black3"
             android:textSize="18sp"
             android:gravity="left"/>
 

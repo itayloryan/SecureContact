@@ -65,34 +65,18 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void initialNavigationBar() {
-        navigationBar.setAutoHideEnabled(true);
         navigationBar
                 .setMode(BottomNavigationBar.MODE_FIXED)
                 .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE)
                 .setBarBackgroundColor("#88B349")
                 .setActiveColor("#FFFFFF")
+                .setInActiveColor("#888888")
                 .addItem(new BottomNavigationItem(R.drawable.ic_call_tab, "Call"))
                 .addItem(new BottomNavigationItem(R.drawable.ic_contacts_tab, "Contacts"))
                 .addItem(new BottomNavigationItem(R.drawable.ic_message_tab, "Message"))
                 .addItem(new BottomNavigationItem(R.drawable.ic_security_tab, "Security"))
                 .initialise();
-        navigationBar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener() {
-
-            @Override
-            public void onTabSelected(int position) {
-                mPager.setCurrentItem(position, false);
-            }
-
-            @Override
-            public void onTabUnselected(int position) {
-
-            }
-
-            @Override
-            public void onTabReselected(int position) {
-
-            }
-        });
+        navigationBar.setTabSelectedListener(mTabSelectedListener);
     }
 
     private void initialTab() {
@@ -165,7 +149,7 @@ public class HomeActivity extends BaseActivity {
                     fragment = CallHistoryFragment.create();
                     break;
                 case CONTACTS:
-                    fragment = CallHistoryFragment.create();
+                    fragment = ContactFragment.create();
                     break;
                 case MESSAGE:
                     fragment = CallHistoryFragment.create();
@@ -198,6 +182,23 @@ public class HomeActivity extends BaseActivity {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
+    private BottomNavigationBar.OnTabSelectedListener mTabSelectedListener = new BottomNavigationBar.OnTabSelectedListener() {
+        @Override
+        public void onTabSelected(int position) {
+            mPager.setCurrentItem(position);
+        }
+
+        @Override
+        public void onTabUnselected(int position) {
+
+        }
+
+        @Override
+        public void onTabReselected(int position) {
+
+        }
+    };
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

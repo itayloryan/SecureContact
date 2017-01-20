@@ -1,8 +1,11 @@
 package com.tayloryan.securecontacts.ui;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.CallLog;
 import android.support.annotation.Nullable;
@@ -39,7 +42,7 @@ import java.util.List;
 
 
 @EFragment(R.layout.fragment_call_history)
-public class CallHistoryFragment extends Fragment implements DialPad.HideDialPadCallBack {
+public class CallHistoryFragment extends Fragment implements DialPad.HideDialPadCallBack, DialPad.DialButtonCallBack {
 
     @ViewById(R.id.call_log_list)
     protected PinnedHeaderExpandableListView mListView;
@@ -69,6 +72,7 @@ public class CallHistoryFragment extends Fragment implements DialPad.HideDialPad
             readCallLogs();
         }
         mDialPad.setHideDialPadCallBack(this);
+        mDialPad.setDialButtonCallBack(this);
         mListAdapter = new GenericExpandableListAdapter(getActivity(), (List<ListViewGroup<?>>) (Object) callLogGroup);
         mListView.setAdapter(mListAdapter);
     }
@@ -91,7 +95,6 @@ public class CallHistoryFragment extends Fragment implements DialPad.HideDialPad
         }
         mCursor = getContext().getContentResolver().query(CallLog.Calls.CONTENT_URI, null, null, null, null);
         onPostReadCallLogs(mCursor);
-
     }
 
     @UiThread
@@ -138,4 +141,19 @@ public class CallHistoryFragment extends Fragment implements DialPad.HideDialPad
     public void onEvent(ReadCallLogPermissionEvent event) {
         readCallLogs();
     }
+
+    @Override
+    public void callTo(String phoneNumber) {
+        Uri uri=Uri.parse("tel:"+phoneNumber);
+        Intent intent=new Intent();
+        intent.setAction(Intent.ACTION_CALL);
+        intent.setData(uri);
+        getActivity().startActivity(intent);
+    }
+
+    public void onEvent() {
+
+    }
+
+
 }

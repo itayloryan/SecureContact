@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tayloryan.securecontacts.R;
+import com.tayloryan.securecontacts.util.ColorUtil;
 
 /**
  * Created by taylor.yan on 1/18/17.
@@ -49,35 +50,42 @@ public class AvatarView extends RelativeLayout {
         mAvatarImage = (CircleImageView) findViewById(R.id.avator_image);
         mFisrtText = (TextView) findViewById(R.id.avatar_first_text);
 
-        if (null != mAvatarBitmap) {
-            mAvatarImage.setImageBitmap(mAvatarBitmap);
-        } else if (null != mAvatarDrawable) {
-            mAvatarImage.setImageDrawable(mAvatarDrawable);
-        } else if (mAvatarResId > 0) {
-            mAvatarImage.setImageResource(mAvatarResId);
-        } else if (null != mAvatarUri) {
-            mAvatarImage.setImageURI(mAvatarUri);
-        } else {
-            mFisrtText.setVisibility(VISIBLE);
-            mAvatarImage.setVisibility(GONE);
-            mFisrtText.setText(mFirstTextString);
-        }
     }
 
     public void setImageBitmap(Bitmap bm) {
         mAvatarBitmap = bm;
+        updateAvavtar(bm);
+    }
+
+    private void updateAvavtar(Bitmap bm) {
+        mAvatarImage.setImageBitmap(bm);
+    }
+
+    private void updateAvavtar(@DrawableRes int resId) {
+        mAvatarImage.setImageResource(resId);
     }
 
     public void setImageDrawable(Drawable drawable) {
         mAvatarDrawable = drawable;
+        updateAvavtar(drawable);
+    }
+
+    private void updateAvavtar(Drawable drawable) {
+        mAvatarImage.setImageDrawable(mAvatarDrawable);
     }
 
     public void setImageResource(@DrawableRes int resId) {
         mAvatarResId = resId;
+        updateAvavtar(resId);
     }
 
     public void setImageURI(Uri uri) {
         mAvatarUri = uri;
+        updateAvavtar(uri);
+    }
+
+    private void updateAvavtar(Uri uri) {
+        mAvatarImage.setImageURI(uri);
     }
 
 
@@ -87,5 +95,13 @@ public class AvatarView extends RelativeLayout {
 
     public void setFirstTextString(String firstTextString) {
         mFirstTextString = firstTextString;
+        updateText();
+    }
+
+    private void updateText() {
+        mFisrtText.setVisibility(VISIBLE);
+        mAvatarImage.setVisibility(GONE);
+        mFisrtText.setText(mFirstTextString);
+        mFisrtText.setBackgroundResource(ColorUtil.getRandomColorDrawableRes());
     }
 }

@@ -8,25 +8,31 @@
 
     <TextView
         android:id="@+id/dial_num"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="1"
         android:textSize="30sp"
         />
-    <TextView
-        android:id="@+id/dial_char"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_below="@id/dial_num"
-        android:textSize="10sp"
-        android:text="ABC"/>
+
     <View
+        android:id="@+id/line_view"
         android:background="@color/colorAccent"
         android:layout_width="match_parent"
-        android:layout_below="@id/dial_char"
+        android:layout_below="@id/dial_num"
         android:layout_marginTop="5dp"
         android:layout_height="1dp"/>
+
+    <TextView
+        android:id="@+id/dial_char"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/dial_num"
+        android:layout_above="@id/line_view"
+        android:textSize="10sp"
+        android:text="ABC"/>
 
 </RelativeLayout>

@@ -6,18 +6,16 @@
     <com.tayloryan.securecontacts.widget.CircleImageView
         android:id="@+id/avator_image"
         android:layout_width="40dp"
-        android:layout_centerInParent="true"
         android:layout_height="40dp"/>
 
     <TextView
         android:id="@+id/avatar_first_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:textSize="18sp"
-        android:layout_centerInParent="true"
         android:textColor="@color/white"
         android:gravity="center"
-        android:background="@drawable/avatar_bg"
+        android:background="@drawable/avatar_bg_primary"
         android:visibility="gone"
         android:text="颜"/>
 
