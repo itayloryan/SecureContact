@@ -108,7 +108,7 @@ public class CallHistoryFragment extends Fragment implements DialPad.HideDialPad
             callsLog.setCallNumber(mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.NUMBER)));
             callsLog.setCallTime(mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.DATE)));
             callsLog.setCallNumber(mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.NUMBER)));
-            callsLog.setAvatarUri(mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.CACHED_PHOTO_URI)));
+            //callsLog.setAvatarUri(mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.CACHED_PHOTO_URI)));
             callsLog.setCallType(mCursor.getInt(mCursor.getColumnIndex(CallLog.Calls.TYPE)));
             ListViewItem callLogItem = new ListViewItem(callsLog, mCallLogItemConverter);
             group.addItem(callLogItem);
