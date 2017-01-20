@@ -6,10 +6,13 @@
               android:layout_height="match_parent">
 
     <android.support.v7.widget.SearchView
-        android:id="@+id/search_key_text_view"
+        android:id="@+id/contact_search_view"
         android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="30dp"
+        android:iconifiedByDefault="false"
         android:queryHint="搜索联系人"
-        android:layout_height="wrap_content"/>
+        android:background="@drawable/search_view_bg"/>
 
     <com.tayloryan.securecontacts.widget.PinnedHeaderListView
         android:id="@+id/contacts_list"
