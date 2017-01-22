@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+    <com.tayloryan.securecontacts.widget.CircleImageView
+        android:id="@+id/avator_image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"/>
+
+    <TextView
+        android:id="@+id/avatar_first_text"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:background="@drawable/avatar_bg_primary"
+        android:visibility="gone"
+        android:text="颜"/>
+
+</RelativeLayout>

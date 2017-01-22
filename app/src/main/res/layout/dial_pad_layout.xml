@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="10dp"
+                xmlns:autofit="http://schemas.android.com/apk/res-auto">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#e4e4e4"/>
+
+    <RelativeLayout
+        android:id="@+id/phone_number_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <com.tayloryan.securecontacts.widget.AutofitTextView
+            android:id="@+id/phone_number_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/hide_dial_pad_btn"
+            android:gravity="center"
+            android:text="566654445"
+            android:minHeight="50dp"
+            android:textSize="30dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            autofit:minTextSize="20sp"/>
+
+        <ImageView
+            android:id="@+id/hide_dial_pad_btn"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_hide_dial_pad"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+    <TableLayout
+        android:id="@+id/dial_pad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:stretchColumns="0,1,2"
+        android:layout_below="@id/phone_number_panel"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TableRow android:gravity="center">
+            <include layout="@layout/dail_button_layout" android:id="@+id/button_dial_1"/>
+            <include layout="@layout/dail_button_layout" android:id="@+id/button_dial_2"/>
+            <include layout="@layout/dail_button_layout" android:id="@+id/button_dial_3"/>
+        </TableRow>
+        <TableRow android:gravity="center">
+            <include layout="@layout/dail_button_layout" android:id="@+id/button_dial_4"/>
+            <include layout="@layout/dail_button_layout" android:id="@+id/button_dial_5"/>
+            <include layout="@layout/dail_button_layout" android:id="@+id/button_dial_6"/>
+        </TableRow>
+        <TableRow android:gravity="center">
+            <include layout="@layout/dail_button_layout" android:id="@+id/button_dial_7"/>
+            <include layout="@layout/dail_button_layout" android:id="@+id/button_dial_8"/>
+            <include layout="@layout/dail_button_layout" android:id="@+id/button_dial_9"/>
+        </TableRow>
+        <TableRow android:gravity="center">
+            <include layout="@layout/dail_button_layout" android:id="@+id/button_dial_star"/>
+            <include layout="@layout/dail_button_layout" android:id="@+id/button_dial_zero"/>
+            <include layout="@layout/dail_button_layout" android:id="@+id/button_dial_pound"/>
+        </TableRow>
+    </TableLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/dial_pad">
+
+        <ImageButton
+            android:id="@+id/send_sms_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="@color/colorPrimary"
+            android:background="@color/transparent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="40dp"
+            android:src="@drawable/ic_send_sms"/>
+    
+        <ImageButton
+            android:id="@+id/dial_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_dial_btn"
+            android:background="@color/transparent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="10dp"/>
+
+        <ImageButton
+            android:id="@+id/phone_backspace_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:padding="9dp"
+            android:scaleType="fitXY"
+            android:clickable="true"
+            android:background="@color/transparent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="40dp"
+            android:contentDescription="backspace"
+            android:src="@drawable/ic_action_backspace"/>
+    </RelativeLayout>
+
+</RelativeLayout>
