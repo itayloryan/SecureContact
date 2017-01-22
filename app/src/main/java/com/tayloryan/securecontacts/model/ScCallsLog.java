@@ -12,7 +12,7 @@ import java.util.Date;
  * Created by taylor.yan on 1/18/17.
  */
 
-public class CallsLog {
+public class ScCallsLog {
 
     private String callerName;
     private String callNumber;

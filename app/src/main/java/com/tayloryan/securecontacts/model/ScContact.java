@@ -6,7 +6,7 @@ import android.text.TextUtils;
  * Created by taylor.yan on 1/18/17.
  */
 
-public class Contact {
+public class ScContact {
 
     private String name;
     private String namePinYin;

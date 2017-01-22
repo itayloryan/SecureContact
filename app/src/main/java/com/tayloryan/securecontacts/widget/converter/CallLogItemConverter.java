@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.tayloryan.securecontacts.R;
-import com.tayloryan.securecontacts.model.CallsLog;
+import com.tayloryan.securecontacts.model.ScCallsLog;
 import com.tayloryan.securecontacts.widget.AvatarView;
 import com.tayloryan.securecontacts.widget.view.IListViewItemConverter;
 
@@ -13,7 +13,7 @@ import com.tayloryan.securecontacts.widget.view.IListViewItemConverter;
  * Created by taylor.yan on 1/18/17.
  */
 
-public class CallLogItemConverter implements IListViewItemConverter<CallsLog> {
+public class CallLogItemConverter implements IListViewItemConverter<ScCallsLog> {
 
     @Override
     public int getViewRes() {
@@ -21,24 +21,24 @@ public class CallLogItemConverter implements IListViewItemConverter<CallsLog> {
     }
 
     @Override
-    public void convet(CallsLog callsLog, View convertView, Context context, boolean selected) {
+    public void convet(ScCallsLog scCallsLog, View convertView, Context context, boolean selected) {
         AvatarView avatarView = (AvatarView) convertView.findViewById(R.id.contact_avatar);
         TextView callTitle = (TextView) convertView.findViewById(R.id.contact_title);
         TextView callType = (TextView) convertView.findViewById(R.id.call_type_text);
         TextView callTime = (TextView) convertView.findViewById(R.id.call_time_text);
         TextView callNumber = (TextView) convertView.findViewById(R.id.phone_number_text);
 
-        if (null != callsLog.getCallerName()) {
-            callTitle.setText(callsLog.getCallerName());
-            callNumber.setText(callsLog.getCallNumber());
+        if (null != scCallsLog.getCallerName()) {
+            callTitle.setText(scCallsLog.getCallerName());
+            callNumber.setText(scCallsLog.getCallNumber());
         } else {
-            callTitle.setText(callsLog.getCallNumber());
-            callNumber.setText(callsLog.getCallNumber());
+            callTitle.setText(scCallsLog.getCallNumber());
+            callNumber.setText(scCallsLog.getCallNumber());
         }
 
-        avatarView.setImageURI(callsLog.getAvatarUri());
+        avatarView.setImageURI(scCallsLog.getAvatarUri());
         avatarView.setFirstTextString(callTitle.getText().toString().substring(0,1));
-        callType.setText(callsLog.getCallType());
-        callTime.setText(callsLog.getCallTime());
+        callType.setText(scCallsLog.getCallType());
+        callTime.setText(scCallsLog.getCallTime());
     }
 }

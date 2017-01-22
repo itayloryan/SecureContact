@@ -78,7 +78,7 @@ public class ContactFragment extends Fragment {
 //        String phoneSelection = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?";
 //
 //        for (mContactCursor.moveToFirst(); !mContactCursor.isAfterLast(); mContactCursor.moveToNext()) {
-//            Contact contact = new Contact();
+//            ScContact contact = new ScContact();
 //            int id = mContactCursor.getInt(mContactCursor.getColumnIndex(ContactsContract.Contacts._ID));
 //            String phoneSelectionArgs [] = {String.valueOf(id)};
 //            contact.setName(mContactCursor.getString(mContactCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
@@ -105,6 +105,9 @@ public class ContactFragment extends Fragment {
 //            group.addItem(callLogItem);
 //        }
         List<Contact> contacts = Contacts.getQuery().find();
+        for (Contact contact : contacts) {
+
+        }
     }
 
 }

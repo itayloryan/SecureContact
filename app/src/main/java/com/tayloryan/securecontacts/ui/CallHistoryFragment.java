@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.CallLog;
 import android.support.annotation.Nullable;
@@ -19,7 +18,7 @@ import com.tayloryan.securecontacts.adapter.GenericExpandableListAdapter;
 import com.tayloryan.securecontacts.event.HideNavigationBarEvent;
 import com.tayloryan.securecontacts.event.ReadCallLogPermissionEvent;
 import com.tayloryan.securecontacts.event.ShowNavigationBarEvent;
-import com.tayloryan.securecontacts.model.CallsLog;
+import com.tayloryan.securecontacts.model.ScCallsLog;
 import com.tayloryan.securecontacts.util.PermissionUtil;
 import com.tayloryan.securecontacts.widget.DialPad;
 import com.tayloryan.securecontacts.widget.PinnedHeaderExpandableListView;
@@ -53,7 +52,7 @@ public class CallHistoryFragment extends Fragment implements DialPad.HideDialPad
 
     private Cursor mCursor;
     private GenericExpandableListAdapter mListAdapter;
-    private List<ListViewGroup<CallsLog>> callLogGroup = new ArrayList<>();
+    private List<ListViewGroup<ScCallsLog>> callLogGroup = new ArrayList<>();
     private CallLogItemConverter mCallLogItemConverter = new CallLogItemConverter();
 
     public static CallHistoryFragment create() {
@@ -99,21 +98,21 @@ public class CallHistoryFragment extends Fragment implements DialPad.HideDialPad
 
     @UiThread
     public void onPostReadCallLogs(Cursor cursor) {
-        ListViewGroup<CallsLog> group = new ListViewGroup<>("call_log");
+        ListViewGroup<ScCallsLog> group = new ListViewGroup<>("call_log");
         group.setHeaderVisible(false);
         if (cursor == null) {
             return;
         }
 
         for (mCursor.moveToFirst(); !mCursor.isAfterLast(); mCursor.moveToNext()) {
-            CallsLog callsLog = new CallsLog();
-            callsLog.setCallerName(mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.CACHED_NAME)));
-            callsLog.setCallNumber(mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.NUMBER)));
-            callsLog.setCallTime(mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.DATE)));
-            callsLog.setCallNumber(mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.NUMBER)));
-            //callsLog.setAvatarUri(mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.CACHED_PHOTO_URI)));
-            callsLog.setCallType(mCursor.getInt(mCursor.getColumnIndex(CallLog.Calls.TYPE)));
-            ListViewItem callLogItem = new ListViewItem(callsLog, mCallLogItemConverter);
+            ScCallsLog scCallsLog = new ScCallsLog();
+            scCallsLog.setCallerName(mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.CACHED_NAME)));
+            scCallsLog.setCallNumber(mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.NUMBER)));
+            scCallsLog.setCallTime(mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.DATE)));
+            scCallsLog.setCallNumber(mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.NUMBER)));
+            //scCallsLog.setAvatarUri(mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.CACHED_PHOTO_URI)));
+            scCallsLog.setCallType(mCursor.getInt(mCursor.getColumnIndex(CallLog.Calls.TYPE)));
+            ListViewItem callLogItem = new ListViewItem(scCallsLog, mCallLogItemConverter);
             group.addItem(callLogItem);
         }
         cursor.close();
