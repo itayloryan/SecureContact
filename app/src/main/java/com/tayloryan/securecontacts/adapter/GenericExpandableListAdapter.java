@@ -70,17 +70,22 @@ public class GenericExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getGroupView(int position, boolean b, View convertView, ViewGroup viewGroup) {
+    public View getGroupView(int position, boolean isExpand, View convertView, ViewGroup viewGroup) {
+        GroupViewHolder groupViewHolder = null;
         ListViewGroup<?> group = mGroups.get(position);
         if (!group.isHeaderVisible()) {
             return new View(mContext);
         }
 
         if (convertView == null) {
+            groupViewHolder = new GroupViewHolder();
             convertView = LayoutInflater.from(mContext).inflate(R.layout.list_group_header, null);
-            TextView indexText = (TextView) convertView.findViewById(R.id.list_group_header_text);
-            indexText.setText(group.getTitle());
+            groupViewHolder.mTextView = (TextView) convertView.findViewById(R.id.list_group_header_text);
+            convertView.setTag(groupViewHolder);
+        } else {
+            groupViewHolder = (GroupViewHolder) convertView.getTag();
         }
+        groupViewHolder.mTextView.setText(group.getTitle());
         return convertView;
     }
 
@@ -90,7 +95,12 @@ public class GenericExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public boolean isChildSelectable(int position, int i1) {
+    public boolean isChildSelectable(int position, int i) {
         return true;
+    }
+
+    static class GroupViewHolder {
+
+            public TextView mTextView;
     }
 }

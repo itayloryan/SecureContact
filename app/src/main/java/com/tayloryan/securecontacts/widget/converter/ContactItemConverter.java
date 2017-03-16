@@ -21,13 +21,13 @@ public class ContactItemConverter implements IListViewItemConverter<ScContact> {
     }
 
     @Override
-    public void convet(ScContact scContact, View convertView, Context context, boolean selected) {
+    public void convert(ScContact scContact, View convertView, Context context, boolean selected) {
         AvatarView avatarView = (AvatarView) convertView.findViewById(R.id.contact_avatar);
         TextView contactTitle = (TextView) convertView.findViewById(R.id.contact_title);
 
         if (scContact.isHasAvatar()) {
             if (null != scContact.getPhoto_uri()) {
-                avatarView.setImageURI(Uri.parse(scContact.getPhoto_uri()));
+                avatarView.setImageURI(scContact.getPhoto_uri());
             } else {
                 //TODO handle avatar with id
                 avatarView.setImageResource(-1);

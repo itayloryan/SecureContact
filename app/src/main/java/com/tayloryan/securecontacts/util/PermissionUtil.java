@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
-import com.tayloryan.securecontacts.SecurityContactApplication;
 import com.tayloryan.securecontacts.SecurityContactApplication_;
 
 import java.util.ArrayList;

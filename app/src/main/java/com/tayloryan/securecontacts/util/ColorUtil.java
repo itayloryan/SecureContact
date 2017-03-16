@@ -42,4 +42,9 @@ public class ColorUtil {
         int index= mRandom.nextInt(drawableRes.length);
         return drawableRes[index];
     }
+
+//    public static int getColorByName(String name) {
+//        String nameAsc = PinYinUtil.getCnASCII(name);
+//        int index = PinYinUtil.getCnASCII(name).s
+//    }
 }

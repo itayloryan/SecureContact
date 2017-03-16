@@ -1,4 +1,4 @@
-package com.tayloryan.securecontacts.ui;
+package com.tayloryan.securecontacts.ui.calllog;
 
 import android.Manifest;
 import android.content.Intent;
@@ -92,24 +92,31 @@ public class CallHistoryFragment extends Fragment implements DialPad.HideDialPad
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        mCursor = getContext().getContentResolver().query(CallLog.Calls.CONTENT_URI, null, null, null, null);
+        String sortOrder = CallLog.Calls.DEFAULT_SORT_ORDER;
+        mCursor = getContext().getContentResolver().query(CallLog.Calls.CONTENT_URI, null, null, null, sortOrder);
         onPostReadCallLogs(mCursor);
     }
 
     @UiThread
     public void onPostReadCallLogs(Cursor cursor) {
         ListViewGroup<ScCallsLog> group = new ListViewGroup<>("call_log");
+        List<String> phoneNumbers = new ArrayList<>();
         group.setHeaderVisible(false);
         if (cursor == null) {
             return;
         }
 
         for (mCursor.moveToFirst(); !mCursor.isAfterLast(); mCursor.moveToNext()) {
+            String number = mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.NUMBER));
+            if (phoneNumbers.contains(number)) {
+                continue;
+            }
             ScCallsLog scCallsLog = new ScCallsLog();
             scCallsLog.setCallerName(mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.CACHED_NAME)));
             scCallsLog.setCallNumber(mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.NUMBER)));
             scCallsLog.setCallTime(mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.DATE)));
-            scCallsLog.setCallNumber(mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.NUMBER)));
+            scCallsLog.setCallNumber(number);
+            phoneNumbers.add(number);
             //scCallsLog.setAvatarUri(mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.CACHED_PHOTO_URI)));
             scCallsLog.setCallType(mCursor.getInt(mCursor.getColumnIndex(CallLog.Calls.TYPE)));
             ListViewItem callLogItem = new ListViewItem(scCallsLog, mCallLogItemConverter);

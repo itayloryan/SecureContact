@@ -2,25 +2,30 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_home"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.tayloryan.securecontacts.ui.HomeActivity">
 
-    <include layout="@layout/tool_bar"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"/>
+    <!--<include layout="@layout/tool_bar"-->
+             <!--android:layout_width="match_parent"-->
+             <!--android:layout_height="wrap_content"/>-->
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/navigation_layout"
+        android:layout_height="45dp"
+        android:layout_width="match_parent"
+        app:tabBackground="@color/colorPrimary"
+        app:tabTextColor="@color/white"
+        app:tabIndicatorColor="@color/white"
+        app:tabSelectedTextColor="@color/white"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/home_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"/>
-
-    <com.ashokvarma.bottomnavigation.BottomNavigationBar
-        android:id="@+id/bottom_navigation_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 
 </LinearLayout>

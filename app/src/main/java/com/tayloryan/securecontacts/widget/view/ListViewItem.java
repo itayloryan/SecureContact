@@ -26,7 +26,7 @@ public class ListViewItem<T> {
             convertView.setTag(viewRes);
         }
 
-        mConverter.convet(mData, convertView, context, mSelected);
+        mConverter.convert(mData, convertView, context, mSelected);
         return convertView;
     }
 }

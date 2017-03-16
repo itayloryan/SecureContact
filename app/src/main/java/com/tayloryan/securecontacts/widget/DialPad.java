@@ -1,7 +1,9 @@
 package com.tayloryan.securecontacts.widget;
 
 import android.content.Context;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tayloryan.securecontacts.R;
-import com.tayloryan.securecontacts.ui.CallHistoryFragment;
-
-import org.androidannotations.annotations.TextChange;
-import org.greenrobot.eventbus.EventBus;
+import com.tayloryan.securecontacts.ui.calllog.CallHistoryFragment;
 
 /**
  * Created by taylor.yan on 1/17/17.
@@ -72,6 +71,7 @@ public class DialPad extends RelativeLayout {
     private void init() {
         LayoutInflater.from(getContext()).inflate(R.layout.dial_pad_layout, this);
         mPhoneTextView = (AutofitTextView) findViewById(R.id.phone_number_text);
+        mPhoneTextView.addTextChangedListener(phoneNumberChangedListener);
         dial_btn_0 = findViewById(R.id.button_dial_zero);
         dial_btn_1 = findViewById(R.id.button_dial_1);
         dial_btn_2 = findViewById(R.id.button_dial_2);
@@ -96,6 +96,23 @@ public class DialPad extends RelativeLayout {
         mBackSpaceButton.setOnLongClickListener(mOnLongClickListener);
         initialDialButton();
     }
+
+    private TextWatcher phoneNumberChangedListener = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
 
     private void initialDialButton() {
         initButton(dial_btn_1, "1", "∞");

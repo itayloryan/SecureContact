@@ -14,9 +14,20 @@
         android:queryHint="搜索联系人"
         android:background="@drawable/search_view_bg"/>
 
-    <com.tayloryan.securecontacts.widget.PinnedHeaderListView
-        android:id="@+id/contacts_list"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <com.tayloryan.securecontacts.widget.ExpandedPinnedHeaderListView
+            android:id="@+id/contacts_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <com.tayloryan.securecontacts.widget.SlideBar
+            android:id="@+id/contact_slide_bar"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
 
 </LinearLayout>

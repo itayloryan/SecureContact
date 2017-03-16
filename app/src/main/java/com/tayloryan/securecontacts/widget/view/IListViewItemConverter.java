@@ -10,5 +10,5 @@ import android.view.View;
 public interface IListViewItemConverter<T> {
 
     int getViewRes();
-    void convet(T object, View convertView, final Context context, boolean selected);
+    void convert(T object, View convertView, final Context context, boolean selected);
 }

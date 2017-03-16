@@ -43,7 +43,7 @@ public class ScCallsLog {
             Date callDate = new Date(Long.parseLong(callTime));
             Calendar calendarDate = Calendar.getInstance();
             calendarDate.setTime(callDate);
-            int duration = (int)(timeNow - callDate.getTime())/1000/60/60/24;
+            int duration = (int)((timeNow - callDate.getTime())/1000/60/60/24);
             if (duration >= 1 ) {
                 return new SimpleDateFormat("MM月dd日").format(callDate);
             } else {
@@ -59,23 +59,25 @@ public class ScCallsLog {
         this.callTime = callTime;
     }
 
-    public String getCallType() {
-        String callTypeStr = "";
-        switch (callType) {
-            case CallLog.Calls.INCOMING_TYPE:
-                callTypeStr =  "呼入";
-            break;
-            case CallLog.Calls.OUTGOING_TYPE:
-                callTypeStr =  "呼出";
-            break;
-            case CallLog.Calls.MISSED_TYPE:
-                callTypeStr =  "未接";
-            break;
-            case CallLog.Calls.REJECTED_TYPE:
-                callTypeStr =  "拒接";
-            break;
-        }
-        return callTypeStr;
+    public int getCallType() {
+//        String callTypeStr;
+//        switch (callType) {
+//            case CallLog.Calls.INCOMING_TYPE:
+//                callTypeStr =  "呼入";
+//            break;
+//            case CallLog.Calls.OUTGOING_TYPE:
+//                callTypeStr =  "呼出";
+//            break;
+//            case CallLog.Calls.MISSED_TYPE:
+//                callTypeStr =  "未接";
+//            break;
+//            case CallLog.Calls.REJECTED_TYPE:
+//                callTypeStr =  "拒接";
+//            break;
+//            default:
+//                callTypeStr = "拒接";
+//        }
+        return callType;
     }
 
     public void setCallType(int callType) {

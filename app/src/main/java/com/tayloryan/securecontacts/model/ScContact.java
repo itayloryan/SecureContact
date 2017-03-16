@@ -1,6 +1,9 @@
 package com.tayloryan.securecontacts.model;
 
+import android.net.Uri;
 import android.text.TextUtils;
+
+import com.tayloryan.securecontacts.util.ColorUtil;
 
 /**
  * Created by taylor.yan on 1/18/17.
@@ -12,6 +15,7 @@ public class ScContact {
     private String namePinYin;
     private String company;
     private String job;
+    private String mFirstLetterOfName;
 
     private String address_work;
     private String address_home;
@@ -29,8 +33,17 @@ public class ScContact {
 
     private String photo_uri;
     private String photo_id;
+    private int avatarBackRes;
 
     private boolean hasAvatar;
+
+    public void setAvatarBackRes() {
+        this.avatarBackRes = ColorUtil.getRandomColorDrawableRes();
+    }
+
+    public int getAvatarBackRes() {
+        return avatarBackRes;
+    }
 
     public String getName() {
         return name;
@@ -152,8 +165,8 @@ public class ScContact {
         this.mail_other = mail_other;
     }
 
-    public String getPhoto_uri() {
-        return photo_uri;
+    public Uri getPhoto_uri() {
+        return TextUtils.isEmpty(photo_uri)? null : Uri.parse(photo_uri);
     }
 
     public void setPhoto_uri(String photo_uri) {
@@ -178,5 +191,13 @@ public class ScContact {
         }
 
         return "";
+    }
+
+    public void setFirstLetterOfName(String firstLetterOfName) {
+        mFirstLetterOfName = firstLetterOfName;
+    }
+
+    public String getFirstLetterOfName() {
+        return mFirstLetterOfName;
     }
 }

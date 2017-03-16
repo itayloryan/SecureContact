@@ -71,6 +71,14 @@ public class PinYinUtil {
     public static void main(String[] args) {
         System.out.println(getPingYin("重庆"));
         System.out.println(getPinYinHeadChar("阿Mei"));
-        System.out.println(getCnASCII("綦江县"));
+        System.out.println(getCnASCII("万诚"));
+        System.out.println(getCnASCII("李白"));
+        System.out.println(getCnASCII("习近平"));
+        System.out.println(getCnASCII("Carter"));
+        System.out.println(getCnASCII("啊"));
+        System.out.println(getCnASCII("X"));
+        System.out.println(getCnASCII("2"));
+        System.out.println(getCnASCII(""));
+        System.out.println("58".substring(1, 2));
     }
 }
