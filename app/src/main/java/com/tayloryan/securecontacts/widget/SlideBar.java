@@ -136,7 +136,7 @@ public class SlideBar extends View {
      * 定义一个接口,用于回调出点击后的字母,显示在弹出的字母对话框中
      * */
     public interface OnTouchingLetterChangedListener {
-        public void onTouchingLetterChanged(String s);
+        void onTouchingLetterChanged(String s);
     }
 
 }

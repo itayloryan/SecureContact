@@ -21,12 +21,17 @@
         <com.tayloryan.securecontacts.widget.ExpandedPinnedHeaderListView
             android:id="@+id/contacts_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:footerDividersEnabled="false"
+            android:divider="@null"
+            android:groupIndicator="@null"/>
 
         <com.tayloryan.securecontacts.widget.SlideBar
             android:id="@+id/contact_slide_bar"
             android:layout_width="30dp"
             android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
             android:layout_alignParentRight="true"/>
     </RelativeLayout>
 

@@ -18,26 +18,29 @@ public class ExpandedPinnedHeaderListView extends PinnedHeaderExpandableListView
 
     public ExpandedPinnedHeaderListView(Context context) {
         super(context);
+        init();
     }
 
     public ExpandedPinnedHeaderListView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
 
     public ExpandedPinnedHeaderListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        init();
     }
 
     private void expandGroup() {
         for (int i = 0; i < getExpandableListAdapter().getGroupCount(); i++) {
             expandGroup(i);
         }
-        setOnGroupClickListener(new OnGroupClickListener() {
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                return true;
-            }
-        }, false);
+
+    }
+
+    private void init() {
+        setOnGroupClickListener(mOnGroupClickListener, false);
+        setOnHeaderUpdateListener(ExpandedPinnedHeaderListView.this);
     }
 
     @Override
@@ -48,9 +51,17 @@ public class ExpandedPinnedHeaderListView extends PinnedHeaderExpandableListView
             public void onChanged() {
                 super.onChanged();
                 expandGroup();
+
             }
         });
     }
+
+    private OnGroupClickListener mOnGroupClickListener = new OnGroupClickListener() {
+        @Override
+        public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+            return true;
+        }
+    };
 
     @Override
     public View getPinnedHeader() {

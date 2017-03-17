@@ -30,15 +30,18 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.HomeActivity_"
-            android:theme="@style/AppTheme.NoActionBarTheme">
+            android:theme="@style/AppTheme.NoActionBarTheme"
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:configChanges="orientation|screenSize|fontScale|locale|keyboard|keyboardHidden|navigation|uiMode|smallestScreenSize|layoutDirection">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.LoginActivity">
-        </activity>
+        <activity
+            android:name=".ui.LoginActivity"
+            android:windowSoftInputMode="stateHidden"/>
     </application>
 
 </manifest>

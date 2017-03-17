@@ -3,7 +3,6 @@ package com.tayloryan.securecontacts.widget.converter;
 import android.content.Context;
 import android.graphics.Color;
 import android.provider.CallLog;
-import android.support.annotation.ColorInt;
 import android.view.View;
 import android.widget.TextView;
 

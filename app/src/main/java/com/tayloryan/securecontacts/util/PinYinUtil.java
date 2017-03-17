@@ -80,5 +80,6 @@ public class PinYinUtil {
         System.out.println(getCnASCII("2"));
         System.out.println(getCnASCII(""));
         System.out.println("58".substring(1, 2));
+        System.out.println("好的".toUpperCase());
     }
 }

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="60dp">
+                android:layout_height="60dp"
+                android:minHeight="70dp">
 
     <com.tayloryan.securecontacts.widget.AvatarView
         android:id="@+id/contact_avatar"
@@ -13,10 +14,11 @@
     <RelativeLayout
         android:id="@+id/call_info_layout"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_toRightOf="@id/contact_avatar"
+        android:layout_centerVertical="true"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:layout_height="match_parent">
+        android:paddingRight="10dp">
 
         <TextView
             android:id="@+id/contact_title"

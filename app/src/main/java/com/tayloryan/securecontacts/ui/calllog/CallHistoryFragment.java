@@ -99,7 +99,7 @@ public class CallHistoryFragment extends Fragment implements DialPad.HideDialPad
 
     @UiThread
     public void onPostReadCallLogs(Cursor cursor) {
-        ListViewGroup<ScCallsLog> group = new ListViewGroup<>("call_log");
+        ListViewGroup<ScCallsLog> group = new ListViewGroup<>(null);
         List<String> phoneNumbers = new ArrayList<>();
         group.setHeaderVisible(false);
         if (cursor == null) {

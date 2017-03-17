@@ -9,10 +9,6 @@
     android:layout_height="match_parent"
     tools:context="com.tayloryan.securecontacts.ui.HomeActivity">
 
-    <!--<include layout="@layout/tool_bar"-->
-             <!--android:layout_width="match_parent"-->
-             <!--android:layout_height="wrap_content"/>-->
-
     <android.support.design.widget.TabLayout
         android:id="@+id/navigation_layout"
         android:layout_height="45dp"

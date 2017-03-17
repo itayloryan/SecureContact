@@ -1,7 +1,6 @@
 package com.tayloryan.securecontacts.widget.converter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.View;
 import android.widget.TextView;
 
@@ -26,8 +25,8 @@ public class ContactItemConverter implements IListViewItemConverter<ScContact> {
         TextView contactTitle = (TextView) convertView.findViewById(R.id.contact_title);
 
         if (scContact.isHasAvatar()) {
-            if (null != scContact.getPhoto_uri()) {
-                avatarView.setImageURI(scContact.getPhoto_uri());
+            if (null != scContact.getPhotoUri()) {
+                avatarView.setImageURI(scContact.getPhotoUri());
             } else {
                 //TODO handle avatar with id
                 avatarView.setImageResource(-1);

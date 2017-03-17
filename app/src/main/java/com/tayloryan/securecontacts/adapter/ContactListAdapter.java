@@ -97,8 +97,8 @@ public class ContactListAdapter extends BaseAdapter {
 //
 //        ScContact contact = (ScContact) getItem(position);
 //
-//        if (contact.getPhoto_uri() != null) {
-//            viewHolder.mAvatarView.setImageURI(contact.getPhoto_uri());
+//        if (contact.getPhotoUri() != null) {
+//            viewHolder.mAvatarView.setImageURI(contact.getPhotoUri());
 //        } else {
 //            viewHolder.mAvatarView.setFirstTextString(contact.getFirstTextOfName());
 //        }

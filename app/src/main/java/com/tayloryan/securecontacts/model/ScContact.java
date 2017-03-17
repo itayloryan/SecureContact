@@ -11,183 +11,185 @@ import com.tayloryan.securecontacts.util.ColorUtil;
 
 public class ScContact {
 
-    private String name;
-    private String namePinYin;
-    private String company;
-    private String job;
+    private String mName;
+    private String mPinOfName;
+    private String mCompanyName;
+    private String mJob;
     private String mFirstLetterOfName;
 
-    private String address_work;
-    private String address_home;
+    private String mAddressWork;
+    private String mAddressHome;
 
-    private String phoneNumber_mobile;
-    private String phoneNumber_work;
-    private String phoneNumber_home;
-    private String phoneNumber_fax_work;
-    private String phoneNumber_fax_home;
-    private String phoneNumber_other;
+    private String mPhoneNumberMobile;
+    private String mPhoneNumberWork;
+    private String mPhoneNumberHome;
+    private String mPhoneNumberFaxWork;
+    private String mPhoneNumberFaxHome;
+    private String mPhoneNumberOther;
 
-    private String mail_personal;
-    private String mail_work;
-    private String mail_other;
+    private String mMailPersonal;
+    private String mMailWork;
+    private String mMailOther;
 
-    private String photo_uri;
-    private String photo_id;
-    private int avatarBackRes;
+    private String mPhotoUri;
+    private String mPhotoId;
+    private int mPhotoResId;
+    private int mNameBackColor;
 
     private boolean hasAvatar;
 
     public void setAvatarBackRes() {
-        this.avatarBackRes = ColorUtil.getRandomColorDrawableRes();
+        mPhotoResId = ColorUtil.getRandomColorDrawableRes();
     }
 
-    public int getAvatarBackRes() {
-        return avatarBackRes;
+    public int getPhotoResId() {
+        return mPhotoResId;
     }
 
     public String getName() {
-        return name;
+        return mName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        mName = name;
     }
 
-    public String getNamePinYin() {
-        return namePinYin;
+    public String getPinOfName() {
+        return mPinOfName;
     }
 
-    public void setNamePinYin(String namePinYin) {
-        this.namePinYin = namePinYin;
+    public void setPinOfName(String pinOfName) {
+        mPinOfName = pinOfName;
     }
 
-    public String getCompany() {
-        return company;
+    public String getCompanyName() {
+        return mCompanyName;
     }
 
-    public void setCompany(String company) {
-        this.company = company;
+    public void setCompanyName(String companyName) {
+        mCompanyName = companyName;
     }
 
     public String getJob() {
-        return job;
+        return mJob;
     }
 
     public void setJob(String job) {
-        this.job = job;
+        mJob = job;
     }
 
-    public String getAddress_work() {
-        return address_work;
+    public String getAddressWork() {
+        return mAddressWork;
     }
 
-    public void setAddress_work(String address_work) {
-        this.address_work = address_work;
+    public void setAddressWork(String addressWork) {
+        mAddressWork = addressWork;
     }
 
-    public String getAddress_home() {
-        return address_home;
+    public String getAddressHome() {
+        return mAddressHome;
     }
 
-    public void setAddress_home(String address_home) {
-        this.address_home = address_home;
+    public void setAddressHome(String addressHome) {
+        mAddressHome = addressHome;
     }
 
-    public String getPhoneNumber_mobile() {
-        return phoneNumber_mobile;
+    public String getPhoneNumberMobile() {
+        return mPhoneNumberMobile;
     }
 
-    public void setPhoneNumber_mobile(String phoneNumber_mobile) {
-        this.phoneNumber_mobile = phoneNumber_mobile;
+    public void setPhoneNumberMobile(String phoneNumberMobile) {
+        mPhoneNumberMobile = phoneNumberMobile;
     }
 
-    public String getPhoneNumber_work() {
-        return phoneNumber_work;
+    public String getPhoneNumberWork() {
+        return mPhoneNumberWork;
     }
 
-    public void setPhoneNumber_work(String phoneNumber_work) {
-        this.phoneNumber_work = phoneNumber_work;
+    public void setPhoneNumberWork(String phoneNumberWork) {
+        mPhoneNumberWork = phoneNumberWork;
     }
 
-    public String getPhoneNumber_home() {
-        return phoneNumber_home;
+    public String getPhoneNumberHome() {
+        return mPhoneNumberHome;
     }
 
-    public void setPhoneNumber_home(String phoneNumber_home) {
-        this.phoneNumber_home = phoneNumber_home;
+    public void setPhoneNumberHome(String phoneNumberHome) {
+        mPhoneNumberHome = phoneNumberHome;
     }
 
-    public String getPhoneNumber_fax_work() {
-        return phoneNumber_fax_work;
+    public String getPhoneNumberFaxWork() {
+        return mPhoneNumberFaxWork;
     }
 
-    public void setPhoneNumber_fax_work(String phoneNumber_fax_work) {
-        this.phoneNumber_fax_work = phoneNumber_fax_work;
+    public void setPhoneNumberFaxWork(String phoneNumberFaxWork) {
+        mPhoneNumberFaxWork = phoneNumberFaxWork;
     }
 
-    public String getPhoneNumber_fax_home() {
-        return phoneNumber_fax_home;
+    public String getPhoneNumberFaxHome() {
+        return mPhoneNumberFaxHome;
     }
 
-    public void setPhoneNumber_fax_home(String phoneNumber_fax_home) {
-        this.phoneNumber_fax_home = phoneNumber_fax_home;
+    public void setPhoneNumberFaxHome(String phoneNumberFaxHome) {
+        mPhoneNumberFaxHome = phoneNumberFaxHome;
     }
 
-    public String getPhoneNumber_other() {
-        return phoneNumber_other;
+    public String getPhoneNumberOther() {
+        return mPhoneNumberOther;
     }
 
-    public void setPhoneNumber_other(String phoneNumber_other) {
-        this.phoneNumber_other = phoneNumber_other;
+    public void setPhoneNumberOther(String phoneNumberOther) {
+        mPhoneNumberOther = phoneNumberOther;
     }
 
-    public String getMail_personal() {
-        return mail_personal;
+    public String getMailPersonal() {
+        return mMailPersonal;
     }
 
-    public void setMail_personal(String mail_personal) {
-        this.mail_personal = mail_personal;
+    public void setMailPersonal(String mailPersonal) {
+        mMailPersonal = mailPersonal;
     }
 
-    public String getMail_work() {
-        return mail_work;
+    public String getMailWork() {
+        return mMailWork;
     }
 
-    public void setMail_work(String mail_work) {
-        this.mail_work = mail_work;
+    public void setMailWork(String mailWork) {
+        mMailWork = mailWork;
     }
 
-    public String getMail_other() {
-        return mail_other;
+    public String getMailOther() {
+        return mMailOther;
     }
 
-    public void setMail_other(String mail_other) {
-        this.mail_other = mail_other;
+    public void setMailOther(String mailOther) {
+        mMailOther = mailOther;
     }
 
-    public Uri getPhoto_uri() {
-        return TextUtils.isEmpty(photo_uri)? null : Uri.parse(photo_uri);
+    public Uri getPhotoUri() {
+        return TextUtils.isEmpty(mPhotoUri)? null : Uri.parse(mPhotoUri);
     }
 
-    public void setPhoto_uri(String photo_uri) {
-        this.photo_uri = photo_uri;
+    public void setPhotoUri(String photoUri) {
+        mPhotoUri = photoUri;
     }
 
-    public String getPhoto_id() {
-        return photo_id;
+    public String getPhotoId() {
+        return mPhotoId;
     }
 
-    public void setPhoto_id(String photo_id) {
-        this.photo_id = photo_id;
+    public void setPhotoId(String photoId) {
+        mPhotoId = photoId;
     }
 
     public boolean isHasAvatar() {
-        return photo_id != null || photo_uri != null;
+        return mPhotoId != null || mPhotoUri != null;
     }
 
     public String getFirstTextOfName() {
-        if (!TextUtils.isEmpty(name)) {
-            return name.substring(0, 1);
+        if (!TextUtils.isEmpty(mName)) {
+            String firstText = mName.substring(0, 1);
+            return firstText.toUpperCase();
         }
 
         return "";
@@ -199,5 +201,13 @@ public class ScContact {
 
     public String getFirstLetterOfName() {
         return mFirstLetterOfName;
+    }
+
+    public void setNameBackColor(int nameBackColor) {
+        mNameBackColor = nameBackColor;
+    }
+
+    public int getNameBackColor() {
+        return mNameBackColor;
     }
 }

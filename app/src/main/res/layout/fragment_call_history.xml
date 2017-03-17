@@ -6,7 +6,9 @@
     <com.tayloryan.securecontacts.widget.PinnedHeaderExpandableListView
         android:id="@+id/call_log_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:groupIndicator="@null"/>
 
     <ImageButton
         android:id="@+id/show_dialpad_btn"
