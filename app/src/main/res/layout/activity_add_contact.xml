@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.tayloryan.securecontacts.ui.contacts.AddContactActivity">
+
+    <include layout="@layout/tool_bar"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:id="@+id/add_contact_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp">
+
+        <RelativeLayout
+            android:id="@+id/contact_image_layout"
+            android:layout_width="100dp"
+            android:layout_height="100dp">
+
+            <com.tayloryan.securecontacts.widget.AvatarView
+                android:id="@+id/contact_image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+        <EditText
+            style="@style/common_edit_text_style"
+            android:id="@+id/contact_name_text"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="姓名"
+            android:layout_toRightOf="@id/contact_image_layout"/>
+
+        <EditText
+            style="@style/common_edit_text_style"
+            android:id="@+id/contact_company_text"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@id/contact_image_layout"
+            android:hint="公司"
+            android:layout_below="@id/contact_name_text"/>
+
+        <EditText
+            style="@style/common_edit_text_style"
+            android:id="@+id/contact_job_text"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="职务"
+            android:layout_toRightOf="@id/contact_image_layout"
+            android:layout_below="@id/contact_company_text"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@id/contact_job_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            style="@style/common_edit_text_style"
+            android:id="@+id/phone_number_text"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_toLeftOf="@+id/phone_number_spinner"/>
+
+        <Spinner
+            android:id="@id/phone_number_spinner"
+            android:layout_alignParentRight="true"
+            android:layout_width="100dp"
+            android:layout_height="50dp"/>
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

@@ -29,7 +29,6 @@ public class ScContact {
 
     private String mMailPersonal;
     private String mMailWork;
-    private String mMailOther;
 
     private String mPhotoUri;
     private String mPhotoId;
@@ -156,14 +155,6 @@ public class ScContact {
 
     public void setMailWork(String mailWork) {
         mMailWork = mailWork;
-    }
-
-    public String getMailOther() {
-        return mMailOther;
-    }
-
-    public void setMailOther(String mailOther) {
-        mMailOther = mailOther;
     }
 
     public Uri getPhotoUri() {

@@ -20,7 +20,7 @@ import com.tayloryan.securecontacts.util.ColorUtil;
 public class AvatarView extends RelativeLayout {
 
     private CircleImageView mAvatarImage;
-    private TextView mFisrtText;
+    private TextView mFirstText;
 
     private Bitmap mAvatarBitmap;
     private Drawable mAvatarDrawable;
@@ -48,8 +48,7 @@ public class AvatarView extends RelativeLayout {
     public void init() {
         LayoutInflater.from(getContext()).inflate(R.layout.avatar_view_layout, this);
         mAvatarImage = (CircleImageView) findViewById(R.id.avator_image);
-        mFisrtText = (TextView) findViewById(R.id.avatar_first_text);
-
+        mFirstText = (TextView) findViewById(R.id.avatar_first_text);
     }
 
     public void setImageBitmap(Bitmap bm) {
@@ -59,6 +58,7 @@ public class AvatarView extends RelativeLayout {
 
     private void updateAvavtar(Bitmap bm) {
         mAvatarImage.setImageBitmap(bm);
+        mFirstText.setVisibility(GONE);
     }
 
     private void updateAvavtar(@DrawableRes int resId) {
@@ -101,9 +101,9 @@ public class AvatarView extends RelativeLayout {
     }
 
     private void updateText() {
-        mFisrtText.setVisibility(VISIBLE);
+        mFirstText.setVisibility(VISIBLE);
         mAvatarImage.setVisibility(GONE);
-        mFisrtText.setText(mFirstTextString);
-        mFisrtText.setBackgroundResource(ColorUtil.getRandomColorDrawableRes());
+        mFirstText.setText(mFirstTextString);
+        mFirstText.setBackgroundResource(ColorUtil.getRandomColorDrawableRes());
     }
 }

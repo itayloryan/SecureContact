@@ -26,6 +26,35 @@ public class DataBaseUtil extends SQLiteOpenHelper {
             "call_type INTEGER NOT NULL" +
             "duration VARCHAR(50) NOT NULL)";
 
+    private static final String SQL_CREATE_CONTACT_TABLE = "CREATE TABLE" +
+            TABLE_CONTACT_NAME + "(" +
+            "id INTEGER PRIMARY KEY," +
+            "name_color INTEGER," +
+            "name_color VARCHAR(50) NOT NULL," +
+            "first_letter_name VARCHAR(50)" +
+            "phone_number_mobile VARCHAR(50)" +
+            "phone_number_work VARCHAR(50)" +
+            "phone_number_home_fax VARCHAR(50)" +
+            "phone_number_work_fax VARCHAR(50)" +
+            "phone_number_other VARCHAR(50)" +
+            "name_pinyin VARCHAR(50)" +
+            "company_name VARCHAR(50)" +
+            "job VARCHAR(50)" +
+            "photo_uri VARCHAR(50)" +
+            "add_home VARCHAR(50)" +
+            "add_work VARCHAR(50)" +
+            "mail VARCHAR(50)" +
+            "mail_work VARCHAR(50))";
+
+    //TODO message table
+    private static final String SQL_CREATE_MESSAGE_TABLE = "CREATE TABLE" +
+            TABLE_MESSAGE_NAME + "(" +
+            "id INTEGER PRIMARY KEY," +
+            "phone_number VARCHAR(50) NOT NULL" +
+            "content VARCHAR(255)" +
+            "call_type INTEGER NOT NULL" +
+            "time VARCHAR(50) NOT NULL)";
+
     public DataBaseUtil(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }

@@ -2,6 +2,7 @@ package com.tayloryan.securecontacts.ui;
 
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,20 +11,32 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.PopupWindow;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.tayloryan.securecontacts.R;
+import com.tayloryan.securecontacts.adapter.MenuAdapter;
 import com.tayloryan.securecontacts.event.ReadCallLogPermissionEvent;
 import com.tayloryan.securecontacts.event.ShowNavigationBarEvent;
 import com.tayloryan.securecontacts.event.HideNavigationBarEvent;
 import com.tayloryan.securecontacts.ui.calllog.CallHistoryFragment;
+import com.tayloryan.securecontacts.ui.contacts.AddContactActivity;
+import com.tayloryan.securecontacts.ui.contacts.AddContactActivity_;
 import com.tayloryan.securecontacts.ui.contacts.ContactFragment;
 import com.tayloryan.securecontacts.ui.message.MessageFragment;
 import com.tayloryan.securecontacts.util.PermissionUtil;
+import com.tayloryan.securecontacts.widget.MenuWidget;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OptionsItem;
+import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -46,14 +59,17 @@ public class HomeActivity extends BaseActivity {
     private List<Tab> tabs = new ArrayList<>();
     private Tab[] mPositionToTab;
     private HomePagerAdapter homePagerAdapter;
-//
-//    @ViewById(R.id.bottom_navigation_bar)
-//    protected BottomNavigationBar navigationBar;
+    private PopupWindow mMenuWindow;
+    private MenuAdapter mMenuAdapter;
+
     @ViewById(R.id.home_pager)
     protected ViewPager mPager;
 
     @ViewById(R.id.navigation_layout)
     protected TabLayout mTabLayout;
+
+    @ViewById(R.id.menu_more)
+    protected MenuWidget mMenuWidget;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,25 +80,8 @@ public class HomeActivity extends BaseActivity {
 
     @AfterViews
     protected void afterViews() {
-        initialNavigationBar();
+        initialMenu();
         initialTab();
-        updateToolBarByPosition(mTabToPosition.get(Tab.CALL_HISTORY));
-    }
-
-    private void initialNavigationBar() {
-
-//        navigationBar
-//                .setMode(BottomNavigationBar.MODE_FIXED)
-//                .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE)
-//                .setBarBackgroundColor("#88B349")
-//                .setActiveColor("#FFFFFF")
-//                .setInActiveColor("#888888")
-//                .addItem(new BottomNavigationItem(R.drawable.ic_call_tab, "Call"))
-//                .addItem(new BottomNavigationItem(R.drawable.ic_contacts_tab, "Contacts"))
-//                .addItem(new BottomNavigationItem(R.drawable.ic_message_tab, "Message"))
-//                .addItem(new BottomNavigationItem(R.drawable.ic_security_tab, "Security"))
-//                .initialise();
-//        navigationBar.setTabSelectedListener(mTabSelectedListener);
     }
 
     private void initialTab() {
@@ -118,28 +117,6 @@ public class HomeActivity extends BaseActivity {
         mTabLayout.getTabAt(3).setText("安全中心");
         selectTab(Tab.CALL_HISTORY);
 
-    }
-
-    private void updateToolBarByPosition(int position) {
-        Tab tab = mPositionToTab[position];
-        String title = "";
-        switch (tab) {
-            case CALL_HISTORY:
-                title = "通话记录";
-                break;
-            case CONTACTS:
-                title = "联系人";
-                break;
-            case MESSAGE:
-                title = "短信";
-                break;
-            case SECURITY:
-                title = "安全中心";
-                break;
-        }
-//        ToolBarConfig.with(this)
-//                .setTitle(title)
-//                .configuration();
     }
 
     private void selectTab(Tab tab) {
@@ -187,6 +164,26 @@ public class HomeActivity extends BaseActivity {
             super.destroyItem(container, position, object);
         }
     }
+
+    private void initialMenu() {
+        List<String> menus = new ArrayList<>();
+        menus.add("新建联系人");
+        menus.add("安全中心");
+        menus.add("关于");
+        mMenuAdapter = new MenuAdapter(this, menus);
+        mMenuWidget.setMenuAdapter(mMenuAdapter);
+    }
+
+    private MenuWidget.OnMenuItemSelectedListener mOnItemSelectedListener = new MenuWidget.OnMenuItemSelectedListener() {
+        @Override
+        public void onMenuItemSelected(String title) {
+            Intent intent = null;
+            if ("新建联系人".equals(title)) {
+                intent = new Intent(HomeActivity.this, AddContactActivity_.class);
+            }
+            startActivity(intent);
+        }
+    };
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(HideNavigationBarEvent event) {
