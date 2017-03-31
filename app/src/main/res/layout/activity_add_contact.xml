@@ -58,25 +58,9 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_below="@id/contact_job_text"
+    <com.tayloryan.securecontacts.widget.ContactsBaseItemWidget_
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            style="@style/common_edit_text_style"
-            android:id="@+id/phone_number_text"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_toLeftOf="@+id/phone_number_spinner"/>
-
-        <Spinner
-            android:id="@id/phone_number_spinner"
-            android:layout_alignParentRight="true"
-            android:layout_width="100dp"
-            android:layout_height="50dp"/>
-
-    </RelativeLayout>
+        android:layout_height="50dp"/>
 
 
 

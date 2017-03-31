@@ -13,14 +13,17 @@ import com.tayloryan.securecontacts.R;
 public class ToolBarConfig {
 
     private Toolbar mToolbar;
-    private AppCompatActivity activity;
+    private AppCompatActivity mActivity;
     private String mTitle = null;
-    private int titleRes = -1;
-    private int logoRes = -1;
-    private boolean showBackButton;
+    private int mTitleRes = -1;
+    private int mLogoRes = -1;
+    private int mLeftButtonRes = -1;
+    private int mRightButtonRes = -1;
+    private boolean mShowBackButton;
+    private View.OnClickListener mOnRightButtonClickListener;
 
     private ToolBarConfig(AppCompatActivity activity) {
-        this.activity = activity;
+        mActivity = activity;
     }
 
     public static ToolBarConfig with(AppCompatActivity activity) {
@@ -28,56 +31,83 @@ public class ToolBarConfig {
     }
 
     public ToolBarConfig setTitle(int titleRes) {
-        this.titleRes = titleRes;
+        mTitleRes = titleRes;
         return this;
     }
 
     public ToolBarConfig setTitle(String title) {
-        this.mTitle = title;
+        mTitle = title;
         return this;
     }
 
     public ToolBarConfig showBackButton(boolean showBackButton) {
-        this.showBackButton = showBackButton;
+        mShowBackButton = showBackButton;
         return this;
     }
 
     public ToolBarConfig setLogo(int logoRes) {
-        this.logoRes = logoRes;
+        mLogoRes = logoRes;
         return this;
     }
 
+    public ToolBarConfig setLeftButtonRes(int leftButtonRes) {
+        mLeftButtonRes = leftButtonRes;
+        return this;
+    }
+
+    public ToolBarConfig setRightButtonRes(int rightButtonRes) {
+        mRightButtonRes = rightButtonRes;
+        return this;
+    }
+
+    public ToolBarConfig setOnRightButtonClickListener(View.OnClickListener onRightButtonClickListener) {
+        mOnRightButtonClickListener = onRightButtonClickListener;
+        return this;
+    }
+
+    private View.OnClickListener mOnClickListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            KeyboardUtil.hideSoftKeyBoard(mActivity);
+            mActivity.finish();
+        }
+    };
+
     public void configuration() {
-        mToolbar = (Toolbar) activity.findViewById(toolbar);
-        ImageView mBack = (ImageView) activity.findViewById(R.id.back_button);
-        if (showBackButton) {
+        mToolbar = (Toolbar) mActivity.findViewById(toolbar);
+        ImageView mBack = (ImageView) mActivity.findViewById(R.id.back_button);
+        if (mShowBackButton) {
             mBack.setVisibility(View.VISIBLE);
-            mBack.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    KeyboardUtil.hideSoftKeyBoard(activity);
-                    activity.finish();
-                }
-            });
+            mBack.setOnClickListener(mOnClickListener);
         } else {
             mBack.setVisibility(View.GONE);
         }
 
-        ImageView mLogo = (ImageView) activity.findViewById(R.id.toolbar_logo);
-        if (logoRes > 0) {
+        ImageView mLogo = (ImageView) mActivity.findViewById(R.id.toolbar_logo);
+        if (mLogoRes > 0) {
             mLogo.setVisibility(View.VISIBLE);
-            mLogo.setImageResource(logoRes);
+            mLogo.setImageResource(mLogoRes);
         } else {
             mLogo.setVisibility(View.GONE);
         }
 
-        if (titleRes > 0) ((TextView) activity.findViewById(R.id.toolbar_title)).setText(titleRes);
-        if (null != mTitle) ((TextView) activity.findViewById(R.id.toolbar_title)).setText(mTitle);
+        if (mTitleRes > 0) ((TextView) mActivity.findViewById(R.id.toolbar_title)).setText(mTitleRes);
+        if (mLeftButtonRes > 0) {
+            ((TextView) mActivity.findViewById(R.id.left_text_button)).setText(mLeftButtonRes);
+            mActivity.findViewById(R.id.left_text_button).setVisibility(View.VISIBLE);
+            mActivity.findViewById(R.id.left_text_button).setOnClickListener(mOnClickListener);
+        }
+        if (mRightButtonRes > 0) {
+            ((TextView) mActivity.findViewById(R.id.right_text_button)).setText(mRightButtonRes);
+            mActivity.findViewById(R.id.right_text_button).setVisibility(View.VISIBLE);
+        }
+        if (null != mTitle) ((TextView) mActivity.findViewById(R.id.toolbar_title)).setText(mTitle);
 
-        activity.setSupportActionBar(mToolbar);
-        activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
-        activity.getSupportActionBar().setDisplayUseLogoEnabled(false);
-        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        mActivity.setSupportActionBar(mToolbar);
+        mActivity.getSupportActionBar().setDisplayShowTitleEnabled(false);
+        mActivity.getSupportActionBar().setDisplayUseLogoEnabled(false);
+        mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
 
 }

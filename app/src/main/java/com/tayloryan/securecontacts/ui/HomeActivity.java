@@ -172,6 +172,7 @@ public class HomeActivity extends BaseActivity {
         menus.add("关于");
         mMenuAdapter = new MenuAdapter(this, menus);
         mMenuWidget.setMenuAdapter(mMenuAdapter);
+        mMenuWidget.setOnItemSelectedListener(mOnItemSelectedListener);
     }
 
     private MenuWidget.OnMenuItemSelectedListener mOnItemSelectedListener = new MenuWidget.OnMenuItemSelectedListener() {
