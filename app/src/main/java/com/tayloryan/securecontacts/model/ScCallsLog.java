@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.provider.CallLog;
 import android.text.TextUtils;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,7 +13,7 @@ import java.util.Date;
  * Created by taylor.yan on 1/18/17.
  */
 
-public class ScCallsLog {
+public class ScCallsLog implements Serializable {
 
     private String callerName;
     private String callNumber;

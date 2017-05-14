@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/email_root"
+    android:layout_height="50dp"
+    android:minHeight="50dp">
+
+    <TextView
+        style="@style/contact_data_style"
+        android:id="@+id/mail_text"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="41902086@qq.com"/>
+
+    <TextView
+        style="@style/contact_data_style"
+        android:id="@+id/mail_label"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_below="@id/mail_text"
+        android:text="手机"
+        android:textColor="@color/darkgray"/>
+
+
+    <View
+        style="@style/common_line_style"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

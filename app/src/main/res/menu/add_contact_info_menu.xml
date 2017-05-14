@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/add_phone_home_menu"
+        android:title="家庭"/>
+    <item android:id="@+id/add_phone_work_menu"
+        android:title="工作"/>
+    <item android:id="@+id/add_phone_fax_menu"
+        android:title="传真"/>
+    <item android:id="@+id/add_phone_other_menu"
+        android:title="其他"/>
+
+</menu>

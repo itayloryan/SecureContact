@@ -9,7 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
-import com.tayloryan.securecontacts.SecurityContactApplication_;
+import com.tayloryan.securecontacts.ScApp_;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,19 +27,19 @@ public class PermissionUtil {
     }
 
     public static boolean hasReadCallLogPermission() {
-        return SecurityContactApplication_.getInstance() != null && hasPermission(SecurityContactApplication_.getInstance() , Manifest.permission.READ_CALL_LOG);
+        return ScApp_.getInstance() != null && hasPermission(ScApp_.getInstance() , Manifest.permission.READ_CALL_LOG);
     }
 
     public static boolean hasReadContactPermission() {
-        return SecurityContactApplication_.getInstance()  != null && hasPermission(SecurityContactApplication_.getInstance() , Manifest.permission.READ_CONTACTS);
+        return ScApp_.getInstance()  != null && hasPermission(ScApp_.getInstance() , Manifest.permission.READ_CONTACTS);
     }
 
     public static boolean hasWriteContactPermission() {
-        return SecurityContactApplication_.getInstance()  != null && hasPermission(SecurityContactApplication_.getInstance() , Manifest.permission.WRITE_CONTACTS);
+        return ScApp_.getInstance()  != null && hasPermission(ScApp_.getInstance() , Manifest.permission.WRITE_CONTACTS);
     }
 
     public static boolean hasCallPermission() {
-        return SecurityContactApplication_.getInstance()  != null && hasPermission(SecurityContactApplication_.getInstance() , Manifest.permission.CALL_PHONE);
+        return ScApp_.getInstance()  != null && hasPermission(ScApp_.getInstance() , Manifest.permission.CALL_PHONE);
     }
 
     public static void requestRequiredPermissions(Activity context) {

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_back"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/receiver_text"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:lines="1"
+            android:textSize="18sp"
+            android:ellipsize="end"
+            android:textColor="@color/white"
+            android:gravity="left|center_vertical"
+
+            android:text="223265+656262+2665+65665656562626262"
+            android:layout_centerInParent="true"/>
+
+        <ImageView
+            android:id="@+id/call_btn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_call"
+            android:tint="@color/white"
+            android:layout_marginRight="8dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/message_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:cacheColorHint="@android:color/transparent"
+        android:scrollbars="none"
+        android:listSelector="@drawable/message_item_selector"
+        android:stackFromBottom="true"
+        android:transcriptMode="normal"
+        android:layout_weight="1"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/darkgray"
+            android:layout_alignParentTop="true"/>
+
+        <ImageView
+            android:id="@+id/add_message"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/ic_add"
+            android:layout_centerVertical="true"/>
+
+        <EditText
+            android:id="@+id/message_text"
+            style="@style/common_edit_text_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="8dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/add_message"
+            android:layout_toLeftOf="@+id/send_btn"
+            android:maxLines="5"/>
+
+        <ImageView
+            android:id="@id/send_btn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_send"
+            android:layout_marginRight="8dp"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

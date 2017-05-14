@@ -49,6 +49,10 @@ public class GenericExpandableListAdapter extends BaseExpandableListAdapter {
         return mGroups.get(position);
     }
 
+    public int getGroupChildCount(int position) {
+        return mGroups.get(position).getItemCount();
+    }
+
     @Override
     public Object getChild(int groupPosition, int childPosition) {
         return mGroups.get(groupPosition).getItem(childPosition);
@@ -91,7 +95,10 @@ public class GenericExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean b, View convertView, ViewGroup viewGroup) {
-        return mGroups.get(groupPosition).getItem(childPosition).convertView(convertView, mContext);
+        View view = mGroups.get(groupPosition).getItem(childPosition).convertView(convertView, mContext);
+        view.setTag(R.id.group_position, groupPosition);
+        view.setTag(R.id.child_position, childPosition);
+        return view;
     }
 
     @Override

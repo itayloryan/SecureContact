@@ -31,8 +31,10 @@
         <ImageView
             android:id="@+id/hide_dial_pad_btn"
             android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:src="@drawable/ic_hide_dial_pad"
+            android:layout_width="25dp"
+            android:src="@drawable/ic_collapse"
+            android:tint="@color/darkgray"
+            android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:layout_centerVertical="true"
             android:layout_height="wrap_content"/>
@@ -76,16 +78,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_below="@id/dial_pad">
-
-        <ImageButton
-            android:id="@+id/send_sms_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:tint="@color/colorPrimary"
-            android:background="@color/transparent"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="40dp"
-            android:src="@drawable/ic_send_sms"/>
     
         <ImageButton
             android:id="@+id/dial_button"

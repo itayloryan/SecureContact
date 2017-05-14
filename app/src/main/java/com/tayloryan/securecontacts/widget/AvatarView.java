@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.tayloryan.securecontacts.R;
 import com.tayloryan.securecontacts.util.ColorUtil;
 
+import java.util.Random;
+
 /**
  * Created by taylor.yan on 1/18/17.
  */
@@ -63,6 +65,8 @@ public class AvatarView extends RelativeLayout {
 
     private void updateAvavtar(@DrawableRes int resId) {
         mAvatarImage.setImageResource(resId);
+        mAvatarImage.setVisibility(VISIBLE);
+        mFirstText.setVisibility(GONE);
     }
 
     public void setImageDrawable(Drawable drawable) {
@@ -88,6 +92,8 @@ public class AvatarView extends RelativeLayout {
 
     private void updateAvavtar(Uri uri) {
         mAvatarImage.setImageURI(uri);
+        mAvatarImage.setVisibility(VISIBLE);
+        mFirstText.setVisibility(GONE);
     }
 
 
@@ -100,10 +106,13 @@ public class AvatarView extends RelativeLayout {
         updateText();
     }
 
+    public void setFirstTextColor(@DrawableRes int resid) {
+        mFirstText.setBackgroundResource(resid);
+    }
+
     private void updateText() {
         mFirstText.setVisibility(VISIBLE);
         mAvatarImage.setVisibility(GONE);
         mFirstText.setText(mFirstTextString);
-        mFirstText.setBackgroundResource(ColorUtil.getRandomColorDrawableRes());
-    }
+     }
 }

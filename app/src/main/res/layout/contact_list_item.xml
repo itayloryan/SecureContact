@@ -22,6 +22,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:singleLine="true"
             android:layout_gravity="center"
             android:ellipsize="end"
             android:textSize="18sp"

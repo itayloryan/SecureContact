@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:minHeight="50dp">
+
+    <LinearLayout
+        android:id="@+id/phone_root_layout"
+        android:orientation="vertical"
+        android:layout_toLeftOf="@+id/send_message_image"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            style="@style/contact_data_style"
+            android:id="@+id/phone_text"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="13800138000" />
+
+        <TextView
+            style="@style/contact_data_style"
+            android:id="@+id/phone_label"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_below="@id/phone_text"
+            android:text="手机"
+            android:textColor="@color/darkgray" />
+    </LinearLayout>
+
+
+    <ImageView
+        style="@style/remove_image_style"
+        android:id="@id/send_message_image"
+        android:src="@drawable/ic_send_message"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="40dp"
+        android:layout_toLeftOf="@id/send_message_image"
+        android:layout_centerVertical="true"
+        android:background="@color/gray"/>
+
+    <View
+        style="@style/common_line_style"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

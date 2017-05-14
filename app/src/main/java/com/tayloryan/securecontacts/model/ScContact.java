@@ -3,46 +3,108 @@ package com.tayloryan.securecontacts.model;
 import android.net.Uri;
 import android.text.TextUtils;
 
-import com.tayloryan.securecontacts.util.ColorUtil;
+import java.io.Serializable;
+import java.util.List;
+
+import cn.bmob.v3.BmobObject;
 
 /**
  * Created by taylor.yan on 1/18/17.
  */
 
-public class ScContact {
+public class ScContact extends BmobObject implements Serializable {
 
+    private int mId;
+    private String mUserId;
+    private String mLookUpKey;
     private String mName;
-    private String mPinOfName;
+    private String mPinYinOfName;
+    private String mPinYinHeaderOfName;
     private String mCompanyName;
     private String mJob;
     private String mFirstLetterOfName;
+    private String mEncryption;
+    private String mNameEncryption;
+    private String mJobEncryption;
+    private String mCompanyEncryption;
 
-    private String mAddressWork;
-    private String mAddressHome;
-
-    private String mPhoneNumberMobile;
-    private String mPhoneNumberWork;
-    private String mPhoneNumberHome;
-    private String mPhoneNumberFaxWork;
-    private String mPhoneNumberFaxHome;
-    private String mPhoneNumberOther;
-
-    private String mMailPersonal;
-    private String mMailWork;
+    private List<PhoneNumber> phoneNumbers;
+    private List<Email> emails;
+    private List<Address> addresses;
 
     private String mPhotoUri;
-    private String mPhotoId;
-    private int mPhotoResId;
     private int mNameBackColor;
+    private String mSearchMatcher;
+
+    public void cloneFrom(ScContact contact) {
+        mId = contact.getId();
+        mName = contact.getName();
+        mUserId = contact.getUserId();
+        mLookUpKey = contact.getLookUpKey();
+        mPinYinOfName = contact.getPinOfName();
+        mPinYinHeaderOfName = contact.getPinHeaderOfName();
+        mFirstLetterOfName = contact.getFirstLetterOfName();
+        mCompanyName = contact.getCompanyName();
+        mJob = contact.getJob();
+        mEncryption = contact.getEncryption();
+        mNameEncryption = contact.getNameEncryption();
+        mJobEncryption = contact.getJobEncryption();
+        mCompanyEncryption = contact.getCompanyEncryption();
+        phoneNumbers = contact.getPhoneNumbers();
+        emails = contact.getEmails();
+        addresses = contact.getAddresses();
+        mNameBackColor = contact.getNameBackColor();
+        mPhotoUri = String.valueOf(contact.getPhotoUri());
+    }
+
+    public void setPhoneNumbers(List<PhoneNumber> phoneNumbers) {
+        this.phoneNumbers = phoneNumbers;
+    }
+
+    public List<PhoneNumber> getPhoneNumbers() {
+        return phoneNumbers;
+    }
+
+    public void setEmails(List<Email> emails) {
+        this.emails = emails;
+    }
+
+    public List<Email> getEmails() {
+        return emails;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
 
     private boolean hasAvatar;
 
-    public void setAvatarBackRes() {
-        mPhotoResId = ColorUtil.getRandomColorDrawableRes();
+    public void setId(int id) {
+        this.mId =id;
     }
 
-    public int getPhotoResId() {
-        return mPhotoResId;
+    public int getId() {
+        return mId;
+    }
+
+    public void setUserId(String userId) {
+        this.mUserId = userId;
+    }
+
+    public String getUserId() {
+        return mUserId;
+    }
+
+    public void setLookUpKey(String lookUpKey) {
+        this.mLookUpKey = lookUpKey;
+    }
+
+    public String getLookUpKey() {
+        return mLookUpKey;
     }
 
     public String getName() {
@@ -53,12 +115,21 @@ public class ScContact {
         mName = name;
     }
 
+
     public String getPinOfName() {
-        return mPinOfName;
+        return mPinYinOfName;
     }
 
     public void setPinOfName(String pinOfName) {
-        mPinOfName = pinOfName;
+        mPinYinOfName = pinOfName;
+    }
+
+    public void setPinHeaderOfName(String mPinHeaderOfName) {
+        this.mPinYinHeaderOfName = mPinHeaderOfName;
+    }
+
+    public String getPinHeaderOfName() {
+        return mPinYinHeaderOfName;
     }
 
     public String getCompanyName() {
@@ -77,104 +148,12 @@ public class ScContact {
         mJob = job;
     }
 
-    public String getAddressWork() {
-        return mAddressWork;
-    }
-
-    public void setAddressWork(String addressWork) {
-        mAddressWork = addressWork;
-    }
-
-    public String getAddressHome() {
-        return mAddressHome;
-    }
-
-    public void setAddressHome(String addressHome) {
-        mAddressHome = addressHome;
-    }
-
-    public String getPhoneNumberMobile() {
-        return mPhoneNumberMobile;
-    }
-
-    public void setPhoneNumberMobile(String phoneNumberMobile) {
-        mPhoneNumberMobile = phoneNumberMobile;
-    }
-
-    public String getPhoneNumberWork() {
-        return mPhoneNumberWork;
-    }
-
-    public void setPhoneNumberWork(String phoneNumberWork) {
-        mPhoneNumberWork = phoneNumberWork;
-    }
-
-    public String getPhoneNumberHome() {
-        return mPhoneNumberHome;
-    }
-
-    public void setPhoneNumberHome(String phoneNumberHome) {
-        mPhoneNumberHome = phoneNumberHome;
-    }
-
-    public String getPhoneNumberFaxWork() {
-        return mPhoneNumberFaxWork;
-    }
-
-    public void setPhoneNumberFaxWork(String phoneNumberFaxWork) {
-        mPhoneNumberFaxWork = phoneNumberFaxWork;
-    }
-
-    public String getPhoneNumberFaxHome() {
-        return mPhoneNumberFaxHome;
-    }
-
-    public void setPhoneNumberFaxHome(String phoneNumberFaxHome) {
-        mPhoneNumberFaxHome = phoneNumberFaxHome;
-    }
-
-    public String getPhoneNumberOther() {
-        return mPhoneNumberOther;
-    }
-
-    public void setPhoneNumberOther(String phoneNumberOther) {
-        mPhoneNumberOther = phoneNumberOther;
-    }
-
-    public String getMailPersonal() {
-        return mMailPersonal;
-    }
-
-    public void setMailPersonal(String mailPersonal) {
-        mMailPersonal = mailPersonal;
-    }
-
-    public String getMailWork() {
-        return mMailWork;
-    }
-
-    public void setMailWork(String mailWork) {
-        mMailWork = mailWork;
-    }
-
     public Uri getPhotoUri() {
         return TextUtils.isEmpty(mPhotoUri)? null : Uri.parse(mPhotoUri);
     }
 
     public void setPhotoUri(String photoUri) {
         mPhotoUri = photoUri;
-    }
-
-    public String getPhotoId() {
-        return mPhotoId;
-    }
-
-    public void setPhotoId(String photoId) {
-        mPhotoId = photoId;
-    }
-
-    public boolean isHasAvatar() {
-        return mPhotoId != null || mPhotoUri != null;
     }
 
     public String getFirstTextOfName() {
@@ -200,5 +179,46 @@ public class ScContact {
 
     public int getNameBackColor() {
         return mNameBackColor;
+    }
+
+
+    public String getEncryption() {
+        return mEncryption;
+    }
+
+    public void setEncryption(String mEncrypt) {
+        this.mEncryption = mEncrypt;
+    }
+
+    public String getNameEncryption() {
+        return mNameEncryption;
+    }
+
+    public void setNameEncryption(String nameEncryption) {
+        this.mNameEncryption = nameEncryption;
+    }
+
+    public String getJobEncryption() {
+        return mJobEncryption;
+    }
+
+    public void setJobEncryption(String jobEncryption) {
+        this.mJobEncryption = jobEncryption;
+    }
+
+    public String getCompanyEncryption() {
+        return mCompanyEncryption;
+    }
+
+    public void setCompanyEncryption(String companyEncryption) {
+        this.mCompanyEncryption = companyEncryption;
+    }
+
+    public void setSearchMatcher(String searchMatcher) {
+        this.mSearchMatcher = searchMatcher;
+    }
+
+    public String getSearchMatcher() {
+        return mSearchMatcher;
     }
 }

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <RadioGroup
+        android:id="@+id/segment_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RadioButton
+            android:id="@+id/login_radio"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:text="登录"
+            android:textColor="@drawable/common_text_selector"
+            android:background="@drawable/radio_btn_left"/>
+
+        <RadioButton
+            android:id="@+id/register_radio"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:button="@null"
+            android:text="注册"
+            android:gravity="center"
+            android:textColor="@drawable/common_text_selector"
+            android:background="@drawable/radio_btn_right"/>
+
+    </RadioGroup>
+
+    <ImageView
+        android:id="@+id/logo_login"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/segment_layout"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/ic_logo_login"/>
+
+    <LinearLayout
+        android:id="@+id/login_layout"
+        android:layout_below="@id/logo_login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="60dp"
+        android:visibility="visible">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_height="50dp">
+
+            <TextView
+                style="@style/label_style"
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:text="账号" />
+
+            <EditText
+                android:id="@+id/username_text"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:hint="手机号/邮箱"
+                android:singleLine="true"
+                android:background="@null" />
+
+        </LinearLayout>
+
+        <View style="@style/common_line_style" />
+
+        <LinearLayout
+            android:layout_below="@id/segment_layout"
+            android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_height="50dp">
+
+            <TextView
+                style="@style/label_style"
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:text="密码" />
+
+            <EditText
+                android:id="@+id/password_text"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:maxLines="1"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:background="@null" />
+
+        </LinearLayout>
+
+        <View style="@style/common_line_style" />
+
+        <Button
+            android:id="@+id/login_btn"
+            style="@style/common_btn_style"
+            android:layout_width="match_parent"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:text="登录"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sign_up_layout"
+        android:layout_below="@id/logo_login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="60dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_height="50dp">
+
+            <TextView
+                style="@style/label_style"
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:text="账号" />
+
+            <EditText
+                android:id="@+id/sign_username_text"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:singleLine="true"
+                android:hint="手机号/邮箱"
+                android:background="@null" />
+
+        </LinearLayout>
+
+        <View style="@style/common_line_style" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_height="50dp">
+
+            <TextView
+                style="@style/label_style"
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:text="密码" />
+
+            <EditText
+                android:id="@+id/sign_password_text"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:singleLine="true"
+                android:inputType="textPassword"
+                android:background="@null" />
+
+        </LinearLayout>
+
+        <View style="@style/common_line_style" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_height="50dp">
+
+            <TextView
+                style="@style/label_style"
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:text="确认密码" />
+
+            <EditText
+                android:id="@+id/sign_password_text2"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:background="@null"/>
+
+        </LinearLayout>
+
+        <View style="@style/common_line_style" />
+
+        <Button
+            android:id="@+id/sign_up_btn"
+            style="@style/common_btn_style"
+            android:layout_width="match_parent"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:text="注册"/>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

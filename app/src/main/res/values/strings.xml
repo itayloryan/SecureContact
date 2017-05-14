@@ -3,26 +3,11 @@
     <string name="cancel_text">取消</string>
     <string name="save_text">保存</string>
     <string name="add_contact_text">新建联系人</string>
-    <string name="edit_contact_text">修改联系人</string>
+    <string name="edit_contact_text">编辑联系人</string>
+    <string name="security_center">安全中心</string>
+    <string name="user_center">用户中心</string>
 
-    <string-array name="contact_phone_items">
-        <item>手机</item>
-        <item>住宅</item>
-        <item>公司</item>
-        <item>传真</item>
-        <item>其他</item>
-    </string-array>
+    <string name="ok_text">确认</string>
 
-    <string-array name="contact_mail_items">
-        <item>个人</item>
-        <item>公司</item>
-        <item>其他</item>
-    </string-array>
-
-    <string-array name="contact_addr_items">
-        <item>住宅</item>
-        <item>公司</item>
-        <item>其他</item>
-    </string-array>
 
 </resources>

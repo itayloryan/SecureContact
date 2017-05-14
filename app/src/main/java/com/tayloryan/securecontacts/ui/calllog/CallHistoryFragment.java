@@ -1,6 +1,7 @@
 package com.tayloryan.securecontacts.ui.calllog;
 
 import android.Manifest;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -11,6 +12,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 
 import com.tayloryan.securecontacts.R;
@@ -50,9 +53,7 @@ public class CallHistoryFragment extends Fragment implements DialPad.HideDialPad
     @ViewById(R.id.dial_pad)
     protected DialPad mDialPad;
 
-    private Cursor mCursor;
     private GenericExpandableListAdapter mListAdapter;
-    private List<ListViewGroup<ScCallsLog>> callLogGroup = new ArrayList<>();
     private CallLogItemConverter mCallLogItemConverter = new CallLogItemConverter();
 
     public static CallHistoryFragment create() {
@@ -72,15 +73,14 @@ public class CallHistoryFragment extends Fragment implements DialPad.HideDialPad
         }
         mDialPad.setHideDialPadCallBack(this);
         mDialPad.setDialButtonCallBack(this);
-        mListAdapter = new GenericExpandableListAdapter(getActivity(), (List<ListViewGroup<?>>) (Object) callLogGroup);
-        mListView.setAdapter(mListAdapter);
+        mListView.setOnChildClickListener(onChildClickListener);
+        mListView.setOnScrollListener(onScrollListener);
     }
 
     @Click(R.id.show_dialpad_btn)
     protected void onClick(View view) {
         switch (view.getId()) {
             case R.id.show_dialpad_btn:
-                EventBus.getDefault().post(new HideNavigationBarEvent());
                 mShowDialPadButton.setVisibility(View.GONE);
                 mDialPad.setVisibility(View.VISIBLE);
                 break;
@@ -89,46 +89,86 @@ public class CallHistoryFragment extends Fragment implements DialPad.HideDialPad
 
     @Background
     protected void readCallLogs() {
+        List<ScCallsLog> callsLogs = new ArrayList<>();
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        String sortOrder = CallLog.Calls.DEFAULT_SORT_ORDER;
-        mCursor = getContext().getContentResolver().query(CallLog.Calls.CONTENT_URI, null, null, null, sortOrder);
-        onPostReadCallLogs(mCursor);
-    }
-
-    @UiThread
-    public void onPostReadCallLogs(Cursor cursor) {
-        ListViewGroup<ScCallsLog> group = new ListViewGroup<>(null);
         List<String> phoneNumbers = new ArrayList<>();
-        group.setHeaderVisible(false);
-        if (cursor == null) {
-            return;
-        }
+        String sortOrder = CallLog.Calls.DEFAULT_SORT_ORDER;
+        ContentResolver resolver = getContext().getContentResolver();
+        Cursor cursor = resolver.query(CallLog.Calls.CONTENT_URI, null, null, null, sortOrder);
 
-        for (mCursor.moveToFirst(); !mCursor.isAfterLast(); mCursor.moveToNext()) {
-            String number = mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.NUMBER));
+        while (cursor.moveToNext()) {
+            String number = cursor.getString(cursor.getColumnIndex(CallLog.Calls.NUMBER));
             if (phoneNumbers.contains(number)) {
                 continue;
             }
             ScCallsLog scCallsLog = new ScCallsLog();
-            scCallsLog.setCallerName(mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.CACHED_NAME)));
-            scCallsLog.setCallNumber(mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.NUMBER)));
-            scCallsLog.setCallTime(mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.DATE)));
+            scCallsLog.setCallerName(cursor.getString(cursor.getColumnIndex(CallLog.Calls.CACHED_NAME)));
+            scCallsLog.setCallNumber(cursor.getString(cursor.getColumnIndex(CallLog.Calls.NUMBER)));
+            scCallsLog.setCallTime(cursor.getString(cursor.getColumnIndex(CallLog.Calls.DATE)));
             scCallsLog.setCallNumber(number);
             phoneNumbers.add(number);
             //scCallsLog.setAvatarUri(mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.CACHED_PHOTO_URI)));
-            scCallsLog.setCallType(mCursor.getInt(mCursor.getColumnIndex(CallLog.Calls.TYPE)));
-            ListViewItem callLogItem = new ListViewItem(scCallsLog, mCallLogItemConverter);
-            group.addItem(callLogItem);
+            scCallsLog.setCallType(cursor.getInt(cursor.getColumnIndex(CallLog.Calls.TYPE)));
+            callsLogs.add(scCallsLog);
+
         }
         cursor.close();
-        callLogGroup.add(group);
+        onPostReadCallLogs(callsLogs);
+    }
+
+    @UiThread
+    public void onPostReadCallLogs(List<ScCallsLog> callsLogs) {
+        List<ListViewGroup<?>> groups = new ArrayList<>();
+
+        if (callsLogs.isEmpty()) {
+            return;
+        }
+
+        ListViewGroup<ScCallsLog> group = new ListViewGroup<>(null);
+        group.setHeaderVisible(false);
+        for (ScCallsLog callLog : callsLogs) {
+            ListViewItem callLogItem = new ListViewItem(callLog, mCallLogItemConverter);
+            group.addItem(callLogItem);
+
+        }
+        groups.add(group);
+        mListAdapter = new GenericExpandableListAdapter(getContext(), groups);
+        mListView.setAdapter(mListAdapter);
         mListAdapter.notifyDataSetChanged();
         for (int i = 0; i < mListAdapter.getGroupCount(); i ++ ) {
             mListView.expandGroup(i);
         }
     }
+
+    private ExpandableListView.OnChildClickListener onChildClickListener = new ExpandableListView.OnChildClickListener() {
+        @Override
+        public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+            ListViewItem<ScCallsLog> item = (ListViewItem<ScCallsLog>) mListAdapter.getChild(groupPosition, childPosition);
+            ScCallsLog callLog = item.getData();
+            if (null != callLog) {
+                String phoneNumber = callLog.getCallNumber();
+                callTo(phoneNumber);
+            }
+            return false;
+        }
+    };
+
+    private AbsListView.OnScrollListener onScrollListener = new AbsListView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
+            if (mDialPad.getVisibility() == View.VISIBLE) {
+                mDialPad.setVisibility(View.GONE);
+                mShowDialPadButton.setVisibility(View.VISIBLE);
+            }
+        }
+
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+        }
+    };
 
     @Override
     public void onDestroy() {
@@ -140,7 +180,6 @@ public class CallHistoryFragment extends Fragment implements DialPad.HideDialPad
     public void hideDialPad() {
         mDialPad.setVisibility(View.GONE);
         mShowDialPadButton.setVisibility(View.VISIBLE);
-        EventBus.getDefault().post(new ShowNavigationBarEvent());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -150,16 +189,10 @@ public class CallHistoryFragment extends Fragment implements DialPad.HideDialPad
 
     @Override
     public void callTo(String phoneNumber) {
-        Uri uri=Uri.parse("tel:"+phoneNumber);
-        Intent intent=new Intent();
-        intent.setAction(Intent.ACTION_CALL);
+        Uri uri = Uri.parse("tel:"+phoneNumber);
+        Intent intent = new Intent(Intent.ACTION_CALL);
         intent.setData(uri);
-        getActivity().startActivity(intent);
+        startActivity(intent);
     }
-
-    public void onEvent() {
-
-    }
-
 
 }

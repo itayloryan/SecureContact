@@ -2,6 +2,7 @@ package com.tayloryan.securecontacts.ui;
 
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -11,36 +12,30 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
+import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.PopupWindow;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 
-import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.tayloryan.securecontacts.R;
-import com.tayloryan.securecontacts.adapter.MenuAdapter;
 import com.tayloryan.securecontacts.event.ReadCallLogPermissionEvent;
-import com.tayloryan.securecontacts.event.ShowNavigationBarEvent;
-import com.tayloryan.securecontacts.event.HideNavigationBarEvent;
 import com.tayloryan.securecontacts.ui.calllog.CallHistoryFragment;
-import com.tayloryan.securecontacts.ui.contacts.AddContactActivity;
 import com.tayloryan.securecontacts.ui.contacts.AddContactActivity_;
 import com.tayloryan.securecontacts.ui.contacts.ContactFragment;
+import com.tayloryan.securecontacts.ui.login.LoginActivity_;
 import com.tayloryan.securecontacts.ui.message.MessageFragment;
+import com.tayloryan.securecontacts.ui.security.SecurityActivity_;
+import com.tayloryan.securecontacts.ui.security.SecurityFragment;
+import com.tayloryan.securecontacts.util.DialogUtil;
 import com.tayloryan.securecontacts.util.PermissionUtil;
-import com.tayloryan.securecontacts.widget.MenuWidget;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.OptionsItem;
-import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -48,19 +43,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.bmob.v3.BmobUser;
+
 @EActivity(R.layout.activity_home)
 public class HomeActivity extends BaseActivity {
 
     private enum Tab {
-        CALL_HISTORY, CONTACTS, MESSAGE, SECURITY
+        CALL_HISTORY, CONTACTS, SECURITY
     }
 
     private final Map<Tab, Integer> mTabToPosition = new EnumMap<Tab, Integer>(Tab.class);
     private List<Tab> tabs = new ArrayList<>();
     private Tab[] mPositionToTab;
     private HomePagerAdapter homePagerAdapter;
-    private PopupWindow mMenuWindow;
-    private MenuAdapter mMenuAdapter;
+    private PopupMenu mMenu;
+    private AlertDialog mLogoutDialog;
 
     @ViewById(R.id.home_pager)
     protected ViewPager mPager;
@@ -69,18 +66,20 @@ public class HomeActivity extends BaseActivity {
     protected TabLayout mTabLayout;
 
     @ViewById(R.id.menu_more)
-    protected MenuWidget mMenuWidget;
+    protected ImageView mMenuWidget;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
         PermissionUtil.requestRequiredPermissions(this);
     }
 
     @AfterViews
     protected void afterViews() {
-        initialMenu();
+        if (BmobUser.getCurrentUser() == null) {
+            startActivity(new Intent(HomeActivity.this, LoginActivity_.class));
+            finish();
+        }
         initialTab();
     }
 
@@ -90,9 +89,7 @@ public class HomeActivity extends BaseActivity {
         tabs.add(Tab.CALL_HISTORY);
         mTabToPosition.put(Tab.CONTACTS, 1);
         tabs.add(Tab.CONTACTS);
-        mTabToPosition.put(Tab.MESSAGE, 2);
-        tabs.add(Tab.MESSAGE);
-        mTabToPosition.put(Tab.SECURITY, 3);
+        mTabToPosition.put(Tab.SECURITY, 2);
         tabs.add(Tab.SECURITY);
 
         mPositionToTab = new Tab[tabs.size()];
@@ -102,19 +99,10 @@ public class HomeActivity extends BaseActivity {
 
         homePagerAdapter = new HomePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(homePagerAdapter);
-        mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-               // navigationBar.selectTab(position);
-                //updateToolBarByPosition(position);
-            }
-        });
         mTabLayout.setupWithViewPager(mPager);
         mTabLayout.getTabAt(0).setText("通话记录");
         mTabLayout.getTabAt(1).setText("联系人");
         mTabLayout.getTabAt(2).setText("短信");
-        mTabLayout.getTabAt(3).setText("安全中心");
         selectTab(Tab.CALL_HISTORY);
 
     }
@@ -142,9 +130,6 @@ public class HomeActivity extends BaseActivity {
                 case CONTACTS:
                     fragment = ContactFragment.create();
                     break;
-                case MESSAGE:
-                    fragment = MessageFragment.create();
-                    break;
                 case SECURITY:
                     fragment = MessageFragment.create();
                     break;
@@ -165,59 +150,56 @@ public class HomeActivity extends BaseActivity {
         }
     }
 
-    private void initialMenu() {
-        List<String> menus = new ArrayList<>();
-        menus.add("新建联系人");
-        menus.add("安全中心");
-        menus.add("关于");
-        mMenuAdapter = new MenuAdapter(this, menus);
-        mMenuWidget.setMenuAdapter(mMenuAdapter);
-        mMenuWidget.setOnItemSelectedListener(mOnItemSelectedListener);
+    @Click(R.id.menu_more)
+    protected void onClick(View view) {
+        showMenu(view);
     }
 
-    private MenuWidget.OnMenuItemSelectedListener mOnItemSelectedListener = new MenuWidget.OnMenuItemSelectedListener() {
+
+    private void showMenu(View view) {
+        mMenu = new PopupMenu(this, view);
+        getMenuInflater().inflate(R.menu.menu_common, mMenu.getMenu());
+        mMenu.setOnMenuItemClickListener(menuItemClickListener);
+        mMenu.show();
+    }
+
+    private PopupMenu.OnMenuItemClickListener menuItemClickListener = new PopupMenu.OnMenuItemClickListener() {
         @Override
-        public void onMenuItemSelected(String title) {
+        public boolean onMenuItemClick(MenuItem item) {
             Intent intent = null;
-            if ("新建联系人".equals(title)) {
-                intent = new Intent(HomeActivity.this, AddContactActivity_.class);
+            switch (item.getItemId()) {
+                case R.id.add_contact:
+                    intent = new Intent(HomeActivity.this, AddContactActivity_.class);
+                    break;
+                case R.id.logout:
+                    DialogInterface.OnClickListener logout = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            BmobUser.logOut();
+                            startActivity(new Intent(HomeActivity.this, LoginActivity_.class));
+                            HomeActivity.this.finish();
+                        }
+                    };
+                    mLogoutDialog = DialogUtil.createTipDialog(HomeActivity.this, "提示", "确认退出?",logout);
+                    mLogoutDialog.show();
+                    break;
+                case R.id.security:
+                    intent = new Intent(HomeActivity.this, SecurityActivity_.class);
+                    break;
             }
-            startActivity(intent);
+            if (null != intent) {
+                startActivity(intent);
+            }
+            return false;
         }
     };
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(HideNavigationBarEvent event) {
-//        navigationBar.setVisibility(View.GONE);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(ShowNavigationBarEvent event) {
-//        navigationBar.setVisibility(View.VISIBLE);
-    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
+        DialogUtil.dismiss(mLogoutDialog);
     }
-
-    private BottomNavigationBar.OnTabSelectedListener mTabSelectedListener = new BottomNavigationBar.OnTabSelectedListener() {
-        @Override
-        public void onTabSelected(int position) {
-            mPager.setCurrentItem(position);
-        }
-
-        @Override
-        public void onTabUnselected(int position) {
-
-        }
-
-        @Override
-        public void onTabReselected(int position) {
-
-        }
-    };
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

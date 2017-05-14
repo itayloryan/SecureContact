@@ -46,4 +46,8 @@ public class ListViewGroup<T> {
     public void setHeaderVisible(boolean headerVisible) {
         this.headerVisible = headerVisible;
     }
+
+    public void removeItem(int childId) {
+        items.remove(childId);
+    }
 }

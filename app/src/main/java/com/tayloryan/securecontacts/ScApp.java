@@ -4,14 +4,17 @@ import android.app.Application;
 import android.content.Context;
 
 import com.github.tamir7.contacts.Contacts;
+import com.tayloryan.securecontacts.util.BmobConfig;
 
 import org.androidannotations.annotations.EApplication;
 
+import cn.bmob.v3.Bmob;
+
 
 @EApplication
-public class SecurityContactApplication extends Application {
+public class ScApp extends Application {
 
-    private static SecurityContactApplication context;
+    private static ScApp context;
 
     public static Context getContext() {
         return context;
@@ -21,10 +24,10 @@ public class SecurityContactApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context = this;
-        Contacts.initialize(this);
+        Bmob.initialize(this, BmobConfig.APP_ID);
     }
 
     public static Context getAppContext() {
-        return SecurityContactApplication_.getInstance().getApplicationContext();
+        return ScApp_.getInstance().getApplicationContext();
     }
 }

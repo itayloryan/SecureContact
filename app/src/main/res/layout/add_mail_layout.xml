@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:minHeight="50dp"
+    android:layout_height="50dp">
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/label_style"
+        android:text="个人"/>
+
+    <EditText
+        android:id="@+id/contact_mail_person"
+        style="@style/contact_info_edit_style"
+        android:layout_toRightOf="@id/title"
+        android:inputType="textEmailAddress"
+        android:layout_toLeftOf="@+id/close_mail_person"/>
+
+    <ImageView
+        android:id="@id/close_mail_person"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_centerVertical="true"
+        android:visibility="invisible"
+        android:src="@drawable/ic_close"/>
+
+</RelativeLayout>

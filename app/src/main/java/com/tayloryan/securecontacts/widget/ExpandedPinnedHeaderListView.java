@@ -63,6 +63,7 @@ public class ExpandedPinnedHeaderListView extends PinnedHeaderExpandableListView
         }
     };
 
+
     @Override
     public View getPinnedHeader() {
         View headerView = (ViewGroup) LayoutInflater.from(getContext()).inflate(R.layout.list_group_header, null);

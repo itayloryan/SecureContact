@@ -39,13 +39,14 @@ public class CallLogItemConverter implements IListViewItemConverter<ScCallsLog> 
         if (null != scCallsLog.getCallerName()) {
             callTitle.setText(scCallsLog.getCallerName());
             callNumber.setText(scCallsLog.getCallNumber());
+            avatarView.setFirstTextString(callTitle.getText().toString().substring(0,1));
+            callNumber.setVisibility(View.VISIBLE);
         } else {
             callTitle.setText(scCallsLog.getCallNumber());
-            callNumber.setText(scCallsLog.getCallNumber());
+            callNumber.setVisibility(View.GONE);
+            avatarView.setImageResource(R.drawable.ic_avatar);
         }
 
-        avatarView.setImageURI(scCallsLog.getAvatarUri());
-        avatarView.setFirstTextString(callTitle.getText().toString().substring(0,1));
         callType.setText(CallType.getCallTypeName(scCallsLog.getCallType()));
         callTime.setText(scCallsLog.getCallTime());
     }

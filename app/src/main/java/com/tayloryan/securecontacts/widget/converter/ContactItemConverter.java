@@ -6,12 +6,9 @@ import android.widget.TextView;
 
 import com.tayloryan.securecontacts.R;
 import com.tayloryan.securecontacts.model.ScContact;
+import com.tayloryan.securecontacts.util.ColorUtil;
 import com.tayloryan.securecontacts.widget.AvatarView;
 import com.tayloryan.securecontacts.widget.view.IListViewItemConverter;
-
-/**
- * Created by taylor.yan on 1/21/17.
- */
 
 public class ContactItemConverter implements IListViewItemConverter<ScContact> {
     @Override
@@ -24,17 +21,17 @@ public class ContactItemConverter implements IListViewItemConverter<ScContact> {
         AvatarView avatarView = (AvatarView) convertView.findViewById(R.id.contact_avatar);
         TextView contactTitle = (TextView) convertView.findViewById(R.id.contact_title);
 
-        if (scContact.isHasAvatar()) {
+        if (null != scContact.getNameEncryption() || scContact.getEncryption() != null) {
+            contactTitle.setText(scContact.getName().replaceAll(".", "*"));
+            avatarView.setImageResource(R.drawable.ic_lock);
+        } else {
+            contactTitle.setText(scContact.getName());
             if (null != scContact.getPhotoUri()) {
                 avatarView.setImageURI(scContact.getPhotoUri());
             } else {
-                //TODO handle avatar with id
-                avatarView.setImageResource(-1);
+                avatarView.setFirstTextString(scContact.getFirstTextOfName());
+                avatarView.setFirstTextColor(scContact.getNameBackColor());
             }
-        } else {
-            avatarView.setFirstTextString(scContact.getFirstTextOfName());
         }
-
-        contactTitle.setText(scContact.getName());
     }
 }

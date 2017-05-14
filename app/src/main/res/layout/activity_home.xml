@@ -22,16 +22,18 @@
             app:tabBackground="@color/colorPrimary"
             app:tabTextColor="@color/white"
             app:tabIndicatorColor="@color/white"
+            app:tabPadding="10dp"
+            app:tabTextAppearance="@style/tab_layout_style"
             app:tabSelectedTextColor="@color/white"/>
 
-        <com.tayloryan.securecontacts.widget.MenuWidget
+        <ImageView
             android:id="@id/menu_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:src="@drawable/ic_menu_more_overflow"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true" />
 
     </RelativeLayout>
 

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/text_edit">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="30dp">
+
+            <RelativeLayout
+                android:id="@+id/contact_header_layout"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@color/slateblue">
+
+                <ImageView
+                    android:id="@+id/close_image"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_back" />
+
+                <TextView
+                    android:id="@+id/contact_name"
+                    android:layout_width="220dp"
+                    android:layout_height="40dp"
+                    android:textSize="20sp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:paddingLeft="20dp"
+                    android:gravity="left|center_vertical"
+                    android:textColor="@color/white"
+                    android:text="顔煌"
+                    android:layout_above="@+id/contact_job" />
+
+                <TextView
+                    android:id="@id/contact_job"
+                    android:layout_width="280dp"
+                    android:layout_height="30dp"
+                    android:textSize="16sp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:paddingLeft="20dp"
+                    android:gravity="left|center_vertical"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/white"
+                    android:text="软件工程师-群硕软件" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/phone_item_layout"
+                android:layout_below="@id/contact_header_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:text="电话"
+                    android:textSize="16sp"
+                    android:paddingLeft="30dp"
+                    android:textColor="@color/black2"
+                    android:layout_centerVertical="true"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    style="@style/common_line_style"
+                    android:background="@color/black3"
+                    android:layout_marginTop="3dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/email_item_layout"
+                android:layout_below="@id/phone_item_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:text="邮件"
+                    android:textSize="16sp"
+                    android:paddingLeft="30dp"
+                    android:textColor="@color/black2"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    style="@style/common_line_style"
+                    android:layout_marginTop="3dp"
+                    android:background="@color/black3" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/addr_item_layout"
+                android:layout_below="@id/email_item_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:text="住址"
+                    android:textSize="16sp"
+                    android:paddingLeft="30dp"
+                    android:textColor="@color/black2"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    style="@style/common_line_style"
+                    android:background="@color/black3"
+                    android:layout_marginTop="3dp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@id/text_edit"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:drawableTop="@drawable/ic_edit"
+        android:text="编辑"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="80dp"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/text_delete"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:drawableTop="@drawable/ic_delete"
+        android:text="删除"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="80dp"
+        android:gravity="center"/>
+</RelativeLayout>
+

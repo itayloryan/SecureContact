@@ -38,8 +38,7 @@ public class ColorUtil {
         return colors[index];
     }
 
-    public static int getRandomColorDrawableRes() {
-        int index= mRandom.nextInt(drawableRes.length);
+    public static int getRandomColorDrawableRes(int index) {
         return drawableRes[index];
     }
 

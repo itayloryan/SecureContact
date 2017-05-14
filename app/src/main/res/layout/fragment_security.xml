@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/user_text_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_user"
+            android:layout_marginLeft="16dp"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/user_text"
+            style="@style/security_item_style"
+            android:drawableRight="@drawable/ic_next"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:text="请登录" />
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/lightgray"/>
+
+    <LinearLayout
+        android:id="@+id/import_from_sys_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:tag="0x0001"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_from_sys"
+            android:layout_marginLeft="16dp"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            style="@style/security_item_style"
+            android:text="从系统导入"
+            android:drawableRight="@drawable/ic_next"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+    </LinearLayout>
+
+    <View
+        style="@style/common_line_style"/>
+
+    <LinearLayout
+        android:id="@+id/download_from_cloud_layout"
+        android:tag="0x0002"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_from_cloud"
+            android:layout_marginLeft="16dp"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            style="@style/security_item_style"
+            android:text="从云端恢复"
+            android:drawableRight="@drawable/ic_next"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+    </LinearLayout>
+
+    <View
+        style="@style/common_line_style"/>
+
+    <LinearLayout
+        android:id="@+id/upload_to_cloud_layout"
+        android:tag="0x0003"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_to_cloud"
+            android:layout_marginLeft="16dp"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            style="@style/security_item_style"
+            android:text="备份到云端"
+            android:drawableRight="@drawable/ic_next"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+    </LinearLayout>
+    <View
+        style="@style/common_line_style"/>
+
+</LinearLayout>

@@ -2,11 +2,13 @@ package com.tayloryan.securecontacts.model;
 
 import android.provider.CallLog;
 
+import java.io.Serializable;
+
 /**
  * Created by taylor.yan on 1/18/17.
  */
 
-public enum CallType {
+public enum CallType implements Serializable {
 
     CALL_OUT("呼出", CallLog.Calls.OUTGOING_TYPE),
     CALL_IN("呼入", CallLog.Calls.INCOMING_TYPE),

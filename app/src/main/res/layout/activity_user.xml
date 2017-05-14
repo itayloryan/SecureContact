@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:id="@+id/user_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_user"
+            android:layout_marginLeft="16dp"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/user_text"
+            style="@style/security_item_style"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:text="请登录" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/lightgray"/>
+
+    <LinearLayout
+        android:id="@+id/change_password_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:tag="0x0001"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_from_sys"
+            android:layout_marginLeft="16dp"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            style="@style/security_item_style"
+            android:text="修改密码"
+            android:drawableRight="@drawable/ic_next"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+    </LinearLayout>
+
+    <View
+        style="@style/common_line_style"/>
+
+    <Button
+        android:id="@+id/logout_btn"
+        style="@style/common_btn_style"
+        android:layout_width="match_parent"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:text="退出登录" />
+
+</LinearLayout>

@@ -29,4 +29,8 @@ public class ListViewItem<T> {
         mConverter.convert(mData, convertView, context, mSelected);
         return convertView;
     }
+
+    public T getData() {
+        return mData;
+    }
 }

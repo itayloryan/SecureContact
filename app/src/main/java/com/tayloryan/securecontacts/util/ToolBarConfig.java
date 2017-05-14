@@ -99,8 +99,12 @@ public class ToolBarConfig {
             mActivity.findViewById(R.id.left_text_button).setOnClickListener(mOnClickListener);
         }
         if (mRightButtonRes > 0) {
-            ((TextView) mActivity.findViewById(R.id.right_text_button)).setText(mRightButtonRes);
-            mActivity.findViewById(R.id.right_text_button).setVisibility(View.VISIBLE);
+            TextView right = (TextView) mActivity.findViewById(R.id.right_text_button);
+            right.setText(mRightButtonRes);
+            right.setVisibility(View.VISIBLE);
+            if (mOnRightButtonClickListener != null) {
+                right.setOnClickListener(mOnRightButtonClickListener);
+            }
         }
         if (null != mTitle) ((TextView) mActivity.findViewById(R.id.toolbar_title)).setText(mTitle);
 

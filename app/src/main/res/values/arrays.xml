@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="contact_phone_items">
+        <item>住宅</item>
+        <item>手机</item>
+        <item>工作</item>
+        <item>工作传真</item>
+        <item>住宅传真</item>
+        <item>寻呼机</item>
+        <item>其他</item>
+        <item>回拨号码</item>
+        <item>车载电话</item>
+        <item>公司总机</item>
+        <item>ISDN</item>
+        <item>总机</item>
+        <item>其他传真</item>
+        <item>无线装置</item>
+        <item>电报</item>
+        <item>TTY TDD</item>
+        <item>工作手机</item>
+        <item>工作寻呼机</item>
+        <item>助理</item>
+        <item>彩信</item>
+    </string-array>
+
+    <string-array name="contact_mail_items">
+        <item>个人</item>
+        <item>工作</item>
+        <item>其他</item>
+        <item>手机</item>
+    </string-array>
+
+    <string-array name="contact_addr_items">
+        <item>住宅</item>
+        <item>工作</item>
+        <item>其他</item>
+    </string-array>
+</resources>

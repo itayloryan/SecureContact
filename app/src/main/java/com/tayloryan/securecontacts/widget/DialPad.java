@@ -45,7 +45,6 @@ public class DialPad extends RelativeLayout {
     private ImageButton mDialBtn;
     private ImageView mHideDialPadButton;
     private ImageButton mBackSpaceButton;
-    private ImageButton mSendSMSButton;
 
     private String mPhoneNumber;
     private String mLastCallNumber;
@@ -86,12 +85,10 @@ public class DialPad extends RelativeLayout {
         dial_btn_pound = findViewById(R.id.button_dial_pound);
         mDialBtn = (ImageButton) findViewById(R.id.dial_button);
         mHideDialPadButton = (ImageView) findViewById(R.id.hide_dial_pad_btn);
-        mSendSMSButton = (ImageButton) findViewById(R.id.send_sms_btn);
         mBackSpaceButton = (ImageButton) findViewById(R.id.phone_backspace_btn);
         mDialBtn.setOnClickListener(mOnClickListener);
         mPhoneTextView.setText(mPhoneNumber);
         mHideDialPadButton.setOnClickListener(mOnClickListener);
-        mSendSMSButton.setOnClickListener(mOnClickListener);
         mBackSpaceButton.setOnClickListener(mOnClickListener);
         mBackSpaceButton.setOnLongClickListener(mOnLongClickListener);
         initialDialButton();
@@ -156,9 +153,6 @@ public class DialPad extends RelativeLayout {
                     if (null != mHideDialPadCallBack) {
                         mHideDialPadCallBack.hideDialPad();
                     }
-                    break;
-                case R.id.send_sms_btn:
-                    //
                     break;
                 case R.id.dial_button:
                     if (!TextUtils.isEmpty(mPhoneNumber)) {
