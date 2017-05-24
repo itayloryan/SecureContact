@@ -3,9 +3,12 @@ package com.tayloryan.securecontacts.service;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.ContactsContract;
 import android.util.Log;
 
+import com.tayloryan.securecontacts.Constants;
 import com.tayloryan.securecontacts.ScApp_;
 import com.tayloryan.securecontacts.dao.impl.ContactDaoImpl;
 import com.tayloryan.securecontacts.model.Address;
@@ -24,11 +27,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import cn.bmob.v3.BmobBatch;
-import cn.bmob.v3.BmobObject;
-import cn.bmob.v3.datatype.BatchResult;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.QueryListListener;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 
 @EBean
@@ -46,7 +48,7 @@ public class ContactService {
 
         ContentResolver mContentResolver= ScApp_.getAppContext().getContentResolver();
         Uri dataUri = Uri.parse("content://com.android.contacts/data");
-        Cursor cursor =mContentResolver.query(ContactsContract.Contacts.CONTENT_URI,null,null,null,null);
+        Cursor cursor = mContentResolver.query(ContactsContract.Contacts.CONTENT_URI,null,null,null,null);
 
         while (cursor.moveToNext()) {
             phoneNumbers = new ArrayList<>();
@@ -110,16 +112,26 @@ public class ContactService {
     }
 
     public void saveContacts(List<ScContact> contacts) {
+        List<ScContact> localContacts = readAllContacts();
         for (ScContact contact:contacts) {
-            saveContact(contact);
+            if (localContacts.size() > 0) {
+                for (ScContact localContact : localContacts) {
+                    if (!localContact.equals(contact)) {
+                        saveContact(contact);
+                    }
+                }
+            } else {
+                saveContacts(contacts);
+            }
+
         }
 
     }
 
     public void saveContact(ScContact contact) {
-        if (!contactDao.getContactByLookUpKey(contact.getLookUpKey())) {
+//        if (!contactDao.getContactByLookUpKey(contact.getLookUpKey())) {
             contactDao.saveContact(contact);
-        }
+//        }
     }
 
     public List<ScContact> readAllContacts() {
@@ -138,49 +150,45 @@ public class ContactService {
         contactDao.deleteContact(contactId);
     }
 
-    public void importFromCloud() {
+    public void importFromCloud(final Handler handler) {
+        BmobQuery<ScContact> contactQuery = new BmobQuery<>();
+        contactQuery.addWhereEqualTo("mUserId", BmobUser.getCurrentUser().getObjectId());
+        contactQuery.findObjects(new FindListener<ScContact>() {
+            @Override
+            public void done(List<ScContact> contacts, BmobException e) {
+                if (null == e) {
+                    saveContacts(contacts);
+                    handler.sendEmptyMessage(Constants.RETURN_SUCCESS);
+                } else {
+                    Message message = new Message();
+                    message.what = Constants.RETURN_ERROR;
+                    message.obj = e;
+                    handler.sendMessage(message);
+                }
+            }
+        });
 
     }
 
-    public void uploadToCloud() {
+    public void uploadToCloud(final Handler handler) {
         List<ScContact> contacts = readAllContacts();
-        System.out.println("HERE:"+contacts.size());
         for (ScContact contact : contacts) {
             contact.save(new SaveListener<String>() {
                 @Override
                 public void done(String s, BmobException e) {
                     if (null != e) {
-                        System.out.println("添加成功："+ s == null? "" : s);
+                        Log.d("添加成功：", s == null? "" : s);
+                        handler.sendEmptyMessage(Constants.RETURN_SUCCESS);
                     } else {
-                        System.out.println("error:" + e.getMessage());
+                        Log.d("error:", e.getMessage());
+                        Message message = new Message();
+                        message.what = Constants.RETURN_ERROR;
+                        message.obj = e;
+                        handler.sendMessage(message);
                     }
                 }
             });
 
-//            for (PhoneNumber phoneNumber : contact.getPhoneNumbers()) {
-//                phoneNumber.save(new SaveListener<String>() {
-//                    @Override
-//                    public void done(String s, BmobException e) {
-//
-//                    }
-//                });
-//            }
-//            for (Email email : contact.getEmails()) {
-//                email.save(new SaveListener<String>() {
-//                    @Override
-//                    public void done(String s, BmobException e) {
-//
-//                    }
-//                });
-//            }
-//            for (Address address : contact.getAddresses()) {
-//                address.save(new SaveListener<String>() {
-//                    @Override
-//                    public void done(String s, BmobException e) {
-//
-//                    }
-//                });
-//            }
         }
     }
 

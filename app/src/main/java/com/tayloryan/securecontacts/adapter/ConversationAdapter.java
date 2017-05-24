@@ -60,9 +60,9 @@ public class ConversationAdapter extends BaseAdapter {
         viewHolder.receiverText.setText(conversation.getReceiver());
         viewHolder.contentText.setText(conversation.getSnippet());
         viewHolder.timeText.setText(conversation.getDate());
-        if (conversation.getMessageCount() - conversation.getReadCount() > 0) {
+        if (conversation.getUnreadCount() > 0) {
             viewHolder.unreadText.setVisibility(View.VISIBLE);
-            viewHolder.unreadText.setText(conversation.getMessageCount() - conversation.getReadCount() + "");
+            viewHolder.unreadText.setText(conversation.getUnreadCount()  + "");
         } else {
             viewHolder.unreadText.setVisibility(View.GONE);
         }

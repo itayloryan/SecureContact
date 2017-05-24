@@ -221,4 +221,15 @@ public class ScContact extends BmobObject implements Serializable {
     public String getSearchMatcher() {
         return mSearchMatcher;
     }
+
+    public boolean equals(ScContact contact) {
+        if (contact == this) return true;
+        if (null == contact) return false;
+        return mName.equals(contact.getName()) && mJob.equals(contact.getJob()) &&
+                mCompanyName.equals(contact.getCompanyName()) &&
+                phoneNumbers.equals(contact.getPhoneNumbers()) &&
+                emails.equals(contact.getEmails()) &&
+                addresses.equals(contact.getAddresses());
+
+    }
 }

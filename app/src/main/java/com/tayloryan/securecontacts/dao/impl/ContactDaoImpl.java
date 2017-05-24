@@ -89,6 +89,7 @@ public class ContactDaoImpl {
                 emails = new ArrayList<>();
                 addresses = new ArrayList<>();
                 contact.setId(cursor.getInt(cursor.getColumnIndex(FIELD_ID)));
+                contact.setUserId(BmobUser.getCurrentUser().getObjectId());
                 contact.setEncryption(cursor.getString(cursor.getColumnIndex(FIELD_ENCRYPTION)));
                 contact.setLookUpKey(cursor.getString(cursor.getColumnIndex(FIELD_CONTACT_LOOK_UP)));
                 contact.setName(cursor.getString(cursor.getColumnIndex(FIELD_NAME)));

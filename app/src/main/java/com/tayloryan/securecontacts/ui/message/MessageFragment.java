@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.ContactsContract;
 import android.provider.Telephony;
 import android.support.v4.app.Fragment;
@@ -65,7 +66,11 @@ public class MessageFragment extends Fragment {
             conversation.setId(cursor.getInt(cursor.getColumnIndex("_id")));
             conversation.setSnippet(cursor.getString(cursor.getColumnIndex("snippet")));
             conversation.setMessageCount(cursor.getInt(cursor.getColumnIndex("message_count")));
-            conversation.setReadCount(cursor.getInt(cursor.getColumnIndex("readcount")));
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+                conversation.setUnReadCount(cursor.getInt(cursor.getColumnIndex("unread_count")));
+            } else {
+                conversation.setUnReadCount(conversation.getMessageCount() - cursor.getInt(cursor.getColumnIndex("readcount")));
+            }
             long date = cursor.getLong(cursor.getColumnIndex("date"));
             Calendar current = Calendar.getInstance();
             Calendar today = Calendar.getInstance();

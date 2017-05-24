@@ -42,6 +42,18 @@ public class PermissionUtil {
         return ScApp_.getInstance()  != null && hasPermission(ScApp_.getInstance() , Manifest.permission.CALL_PHONE);
     }
 
+    public static boolean hasReadSmsPermission() {
+        return ScApp_.getInstance()  != null && hasPermission(ScApp_.getInstance() , Manifest.permission.READ_SMS);
+    }
+
+    public static boolean hasSendSmsPermission() {
+        return ScApp_.getInstance()  != null && hasPermission(ScApp_.getInstance() , Manifest.permission.SEND_SMS);
+    }
+
+    public static boolean hasReceiveSmsPermission() {
+        return ScApp_.getInstance()  != null && hasPermission(ScApp_.getInstance() , Manifest.permission.RECEIVE_SMS);
+    }
+
     public static void requestRequiredPermissions(Activity context) {
 
         String[] requiredPermissions = getRequiredPermissions();
@@ -71,7 +83,17 @@ public class PermissionUtil {
             permissionList.add(Manifest.permission.CALL_PHONE);
         }
 
+        if (!hasReadSmsPermission()) {
+            permissionList.add(Manifest.permission.READ_SMS);
+        }
 
+        if (!hasSendSmsPermission()) {
+            permissionList.add(Manifest.permission.SEND_SMS);
+        }
+
+        if (!hasReceiveSmsPermission()) {
+            permissionList.add(Manifest.permission.RECEIVE_SMS);
+        }
 
         if (permissionList.isEmpty()) {
             return null;

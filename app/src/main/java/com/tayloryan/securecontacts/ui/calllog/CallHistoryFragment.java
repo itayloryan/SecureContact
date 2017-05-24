@@ -22,6 +22,7 @@ import com.tayloryan.securecontacts.event.HideNavigationBarEvent;
 import com.tayloryan.securecontacts.event.ReadCallLogPermissionEvent;
 import com.tayloryan.securecontacts.event.ShowNavigationBarEvent;
 import com.tayloryan.securecontacts.model.ScCallsLog;
+import com.tayloryan.securecontacts.ui.BaseActivity;
 import com.tayloryan.securecontacts.util.PermissionUtil;
 import com.tayloryan.securecontacts.widget.DialPad;
 import com.tayloryan.securecontacts.widget.PinnedHeaderExpandableListView;
@@ -109,7 +110,6 @@ public class CallHistoryFragment extends Fragment implements DialPad.HideDialPad
             scCallsLog.setCallTime(cursor.getString(cursor.getColumnIndex(CallLog.Calls.DATE)));
             scCallsLog.setCallNumber(number);
             phoneNumbers.add(number);
-            //scCallsLog.setAvatarUri(mCursor.getString(mCursor.getColumnIndex(CallLog.Calls.CACHED_PHOTO_URI)));
             scCallsLog.setCallType(cursor.getInt(cursor.getColumnIndex(CallLog.Calls.TYPE)));
             callsLogs.add(scCallsLog);
 
@@ -189,10 +189,7 @@ public class CallHistoryFragment extends Fragment implements DialPad.HideDialPad
 
     @Override
     public void callTo(String phoneNumber) {
-        Uri uri = Uri.parse("tel:"+phoneNumber);
-        Intent intent = new Intent(Intent.ACTION_CALL);
-        intent.setData(uri);
-        startActivity(intent);
+        ((BaseActivity) getActivity()).callTo(phoneNumber);
     }
 
 }

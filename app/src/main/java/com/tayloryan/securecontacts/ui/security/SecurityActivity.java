@@ -2,12 +2,16 @@ package com.tayloryan.securecontacts.ui.security;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tayloryan.securecontacts.Constants;
 import com.tayloryan.securecontacts.R;
+import com.tayloryan.securecontacts.event.ReloadContactsEvent;
 import com.tayloryan.securecontacts.model.ScContact;
 import com.tayloryan.securecontacts.service.ContactService;
 import com.tayloryan.securecontacts.ui.BaseActivity;
@@ -22,10 +26,12 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
 
 
 @EActivity(R.layout.activity_security)
@@ -77,21 +83,26 @@ public class SecurityActivity extends BaseActivity {
                 break;
             case R.id.import_from_sys_layout:
                 mProgressDialog.setMessage("正在导入联系人...");
+                mProgressDialog.show();
                 importContactsFromSys();
+                break;
             case R.id.download_from_cloud_layout:
                 mProgressDialog.setMessage("正在恢复联系人...");
+                mProgressDialog.show();
                 importFromCloud();
+                break;
             case R.id.upload_to_cloud_layout:
                 mProgressDialog.setMessage("正在备份联系人...");
+                mProgressDialog.show();
                 uploadToCloud();
                 break;
         }
-        mProgressDialog.show();
+
     }
 
     @Background
     protected void uploadToCloud() {
-        contactService.uploadToCloud();
+        contactService.uploadToCloud(uploadToCloudHandler);
         onPostUploadToCloud();
     }
 
@@ -102,21 +113,24 @@ public class SecurityActivity extends BaseActivity {
 
     @Background
     protected void importFromCloud() {
+        contactService.importFromCloud(importFromCloudHandler);
     }
 
     @Background
     protected void importContactsFromSys() {
-        try {
+//        try {
             List<ScContact> contacts = contactService.importContactsFromSys();
             contactService.saveContacts(contacts);
             onPostImportFromSys();
-        } catch (Exception e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG);
-        }
+//        } catch (Exception e) {
+//            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG);
+//        }
     }
 
     private void onPostImportFromSys() {
         mProgressDialog.dismiss();
+        showToast("成功导入联系人！", Toast.LENGTH_SHORT);
+        EventBus.getDefault().postSticky(new ReloadContactsEvent());
         finish();
     }
 
@@ -127,4 +141,39 @@ public class SecurityActivity extends BaseActivity {
                 .setTitle(R.string.security_center)
                 .configuration();
     }
+
+    private Handler importFromCloudHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case Constants.RETURN_SUCCESS:
+                    showToast("联系人恢复成功！", Toast.LENGTH_SHORT);
+                    EventBus.getDefault().postSticky(new ReloadContactsEvent());
+                    finish();
+                    break;
+                case Constants.RETURN_ERROR:
+                    BmobException exception = (BmobException) msg.obj;
+                    showToast(exception.getMessage(), Toast.LENGTH_SHORT);
+                    break;
+            }
+        }
+    };
+
+    private Handler uploadToCloudHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            mProgressDialog.dismiss();
+            switch (msg.what) {
+                case Constants.RETURN_SUCCESS:
+                    showToast("联系人云备份成功！", Toast.LENGTH_SHORT);
+                    break;
+                case Constants.RETURN_ERROR:
+                    BmobException exception = (BmobException) msg.obj;
+                    showToast(exception.getMessage(), Toast.LENGTH_SHORT);
+                    break;
+            }
+        }
+    };
 }

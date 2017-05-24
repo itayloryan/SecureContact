@@ -18,12 +18,19 @@ import java.util.List;
 
 public class MessageAdapter extends BaseAdapter {
 
+    public static final int MESSAGE_TYPE_FROM = 1;
+    public static final int MESSAGE_SEND_FAIL = 5;
+
     private Context context;
     private List<Message> messages;
 
     public MessageAdapter(Context context, List<Message> messages) {
         this.context = context;
         this.messages = messages;
+    }
+
+    public void addMessage(Message message) {
+        messages.add(message);
     }
 
     @Override
@@ -45,19 +52,23 @@ public class MessageAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder viewHolder;
         Message message = messages.get(position);
+        TextView sendFailText = null;
         if (null == convertView) {
-            if (1 == message.getType()) {
+            if (MESSAGE_TYPE_FROM == message.getType()) {
                 convertView = LayoutInflater.from(context).inflate(R.layout.message_from_item_layout, null);
             } else {
                 convertView = LayoutInflater.from(context).inflate(R.layout.message_to_item_layout, null);
+                sendFailText = (TextView) convertView.findViewById(R.id.send_fail_text);
             }
             viewHolder = new ViewHolder();
             viewHolder.contentText = (TextView) convertView.findViewById(R.id.content_text);
             viewHolder.timeText = (TextView) convertView.findViewById(R.id.time_text);
-            if (message.getType() == 5) {
-                viewHolder.sendFailText = (TextView) convertView.findViewById(R.id.send_fail_text);
-            } else {
-                viewHolder.sendFailText = null;
+            viewHolder.sendFailText = sendFailText;
+            if (message.getType() == MESSAGE_SEND_FAIL) {
+                viewHolder.sendFailText.setVisibility(View.VISIBLE);
+            } else if (null != viewHolder.sendFailText) {
+                viewHolder.sendFailText.setVisibility(View.GONE);
+
             }
             convertView.setTag(viewHolder);
         } else {
@@ -67,9 +78,6 @@ public class MessageAdapter extends BaseAdapter {
 
         viewHolder.contentText.setText(message.getBody());
         viewHolder.timeText.setText(message.getDate());
-        if (message.getType() == 5) {
-            viewHolder.sendFailText.setVisibility(View.VISIBLE);
-        }
 
         return convertView;
     }

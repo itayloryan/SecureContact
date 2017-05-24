@@ -7,7 +7,7 @@ public class Conversation implements Serializable {
     private int id;
     private String date;
     private int messageCount;
-    private int readCount;
+    private int unReadCount;
     private String snippet;
     private int read;
     private String receiver;
@@ -39,12 +39,12 @@ public class Conversation implements Serializable {
         this.messageCount = messageCount;
     }
 
-    public int getReadCount() {
-        return readCount;
+    public int getUnreadCount() {
+        return unReadCount;
     }
 
-    public void setReadCount(int readCount) {
-        this.readCount = readCount;
+    public void setUnReadCount(int unReadCount) {
+        this.unReadCount = unReadCount;
     }
 
     public String getSnippet() {
